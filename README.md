@@ -27,7 +27,10 @@ After that make migration running:
 php artisan migrate
    ```
 
-
+To create laravel secret key run:
+```sh
+php artisan key:generate
+```
 
 To create jwt secret key run:
 ```sh
