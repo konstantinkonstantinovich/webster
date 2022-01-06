@@ -10,7 +10,6 @@ Simple service for graphic design. Even if you doesn't have design skills for cr
 ## Installation
 
 To install composer packages run:
--
   ```sh
   composer install --ignore-platform-reqs
    ```
@@ -43,5 +42,3 @@ To start artisan server run:
 ```sh
 php artisan serv
  ```
-
- 
