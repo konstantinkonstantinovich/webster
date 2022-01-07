@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
@@ -61,11 +61,29 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+        $data = [
+          'email' => $user->email
+        ];
+
+        Mail::send('mail', $data, function ($m) use ($user) {
+            $m->subject('Varify mail!');
+            $m->to($user->email);
+        });
 
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
         ], 201);
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function userProfile() {
+        return response()->json(auth()->user());
     }
 
     protected function createNewToken($token){
