@@ -34,7 +34,8 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
+        $token = auth()->attempt($validator->validated());
+        if (!$token) {
             $message = [
                "error" => 'Unauthorized',
                "message" => 'Login or password are incorrect'
@@ -42,7 +43,7 @@ class AuthController extends Controller
             return response()->json($message, 401);
         }
 
-        return $this->createNewToken($token);
+        return response()->json($this->createNewToken($token));
     }
 
     public function register(Request $request) {
@@ -65,29 +66,26 @@ class AuthController extends Controller
           'email' => $user->email
         ];
 
-        Mail::send('mail', $data, function ($m) use ($user) {
-            $m->subject('Varify mail!');
-            $m->to($user->email);
-        });
+        // Mail::send('mail', $data, function ($m) use ($user) { //FIXME dosnt work, Cannot send message without a sender address
+        //     $m->subject('Varify mail!');
+        //     $m->to($user->email);
+        // });
 
-        return response()->json([
-            'message' => 'User successfully registered'
-        ], 201);
+        return response()->json($this->createNewToken(JWTAuth::fromUser($user)), 201);
     }
 
-    public function logout()
-    {
+    public function logout() {
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
 
-    protected function createNewToken($token){
-      return response()->json([
+    protected function createNewToken($token) {
+      return [
         'access_token' => $token,
         'token_type' => 'bearer',
         'expires_in' => auth()->factory()->getTTL() * 60,
         'user' => auth()->user()
-      ]);
+      ];
     }
 }
