@@ -43,4 +43,19 @@ class UserController extends Controller
         }
         return response()->json(['error' => 'Unauthorized'], 401);
     }
+
+    public function user_profile(Request $request, $user_id = null) {
+        if(!$user_id && !(auth()->user()))
+            return response()->json(['error' => 'No information'], 400);
+        
+        if(!$user_id) {
+            $user = auth()->user();
+        }
+        else{
+            $user = User::find($user_id);
+        }
+        $user->avatar = asset($user->avatar);
+    
+        return response()->json($user, 200);
+    }
 }

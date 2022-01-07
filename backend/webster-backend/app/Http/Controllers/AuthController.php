@@ -81,9 +81,6 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function userProfile() {
-        return response()->json(auth()->user());
-    }
 
     protected function createNewToken($token){
       return response()->json([
