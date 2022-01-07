@@ -18,7 +18,16 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
-        if (!$token = auth()->attempt($request->all())) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        if (!$token = auth()->attempt($validator->validated())) {
             $message = [
                "error" => 'Unauthorized',
                "message" => 'Login or password are incorrect'
@@ -30,20 +39,20 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        // $validator = Validator::make($request->all(), [
-        //     "login" => 'required|string',
-        //     "email" => 'required|string|email|max:100|unique:users',
-        //     "password" => 'required|string|confirmed|min:6'
-        // ]);
-        //
-        // if($validator->fails()){
-        //     return response()->json($validator->errors()->toJson(), 400);
-        // }
+        $validator = Validator::make($request->all(), [
+            "login" => 'required|string',
+            "email" => 'required|string|email|max:100|unique:users',
+            "password" => 'required|string|confirmed|min:6'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
 
         $user = new User();
-        $user->login = $request["login"];
-        $user->email = $request["email"];
-        $user->password = bcrypt($request["password"]);
+        $user->login = $request->login;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
         $user->save();
 
         return response()->json([
