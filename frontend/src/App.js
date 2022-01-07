@@ -10,6 +10,8 @@ import {
 import Registration from './Registration/Registration'
 import Login from "./Login/Login";
 import Home from './Home/Home'
+import Header from './Misc/Header'
+import Footer from './Misc/Footer'
 
 
 const axios = require('axios');
@@ -28,7 +30,10 @@ function App() {
     const [token, setToken] = useState(Cookies.get('token'));
 
     return (
-        <div className="App">
+    <div className="holy-grail">
+      <Header token={token} setToken={setToken}/>
+      <main className="holy-grail-body">
+        <main className="holy-grail-content">
         <Router>
         <Switch>
             <Route path="/login">
@@ -42,7 +47,10 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        </div>
+        </main>
+      </main>
+      <Footer/>
+    </div>
     );
 }
 
