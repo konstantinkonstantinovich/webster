@@ -27,3 +27,11 @@ Route::group([
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/registration', [AuthController::class, 'register']);
 });
+
+Route::group([
+    'middleware' => 'api'
+
+], function ($router) {
+    Route::get('/progects', [ProjectController::class, 'get_all_projects']);
+    Route::get('/progects/:id', [ProjectController::class, 'get_project']);
+});
