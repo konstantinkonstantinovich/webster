@@ -29,3 +29,11 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);      
 });
+
+Route::group([
+    'middleware' => 'api'
+
+], function ($router) {
+    Route::get('/progects', [ProjectController::class, 'get_all_projects']);
+    Route::get('/progects/:id', [ProjectController::class, 'get_project']);
+});
