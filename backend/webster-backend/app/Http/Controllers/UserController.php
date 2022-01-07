@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function user_update(Request $request) {
         $user = auth()->user();
-        
+
         if($user) {
             $user->update([
                 'login'=>$request->login,
@@ -27,7 +27,7 @@ class UserController extends Controller
                 auth()->user()->update(['avatar' => $path]);
                 $user->avatar = asset($path);
             }
-            
+
             return response()->json($user, 200);
         }
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -42,5 +42,25 @@ class UserController extends Controller
             return response()->json(['error' => 'No information'], 400);
         }
         return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+
+    public function forgot_password(Request $request){
+      $user = User::where('email', '=', $request->only(['email']))->first();
+      $token = Str::random(20);
+      $user->update(['remember_token' => $token]);
+      Mail::send('reset', ['token' => $token], function ($m) use ($user) {
+          $m->subject('Reset password!');
+          $m->to($user->email);
+      });
+      return response()->json(['Success' => 'Token was sended to your email!'], 200);
+    }
+
+    public function reset_password(Request $request, $token){
+        $user = User::where('remember_token', '=', $token)->first();
+        $user->update([
+            'remember_token' => NULL,
+            'password' => Hash::make($request->all()['password'])
+        ]);
     }
 }

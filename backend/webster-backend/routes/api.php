@@ -28,7 +28,7 @@ Route::group([
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/registration', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);      
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
 
 Route::group([
@@ -46,4 +46,5 @@ Route::group([
 ], function ($router) {
     Route::post('/update', [UserController::class, 'user_update']);
     Route::get('/avatar/{user_id}', [UserController::class, 'get_avatar']);
+    Route::post('/forgot_password', [UserController::class, 'forgot_password']);
 });
