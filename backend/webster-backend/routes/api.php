@@ -49,4 +49,5 @@ Route::group([
 
     Route::get('/avatar/{user_id}', [UserController::class, 'get_avatar']);
     Route::post('/forgot_password', [UserController::class, 'forgot_password']);
+    Route::post('/reset_password_link/{token}', [UserController::class, 'reset_password']);
 });

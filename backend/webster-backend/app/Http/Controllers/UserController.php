@@ -47,6 +47,8 @@ class UserController extends Controller
     public function forgot_password(Request $request){
       $user = User::where('email', '=', $request->only(['email']))->first();
       $token = Str::random(20);
+
+      return $user;
       $user->update(['remember_token' => $token]);
       Mail::send('reset', ['token' => $token], function ($m) use ($user) {
           $m->subject('Reset password!');
@@ -61,6 +63,7 @@ class UserController extends Controller
             'remember_token' => NULL,
             'password' => Hash::make($request->all()['password'])
         ]);
+              return response()->json(['Success' => 'Password was reset!'], 200);
     }
 
     public function user_profile(Request $request, $user_id = null) {
