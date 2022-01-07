@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import { isExpired, decodeToken } from "react-jwt";
 import { Redirect, useHistory } from 'react-router-dom';
+import './login.css'
 
 const axios = require('axios').default;
 
@@ -31,21 +32,26 @@ export default function Login(props) {
         return <Redirect to='/'/>;
     } else {
         return (
-        <div className="center">
-            <form onSubmit={submit}>
-                <h2>Login</h2>
-                <input placeholder="E-mail" required type='text'
-                    name="email"
-                />
-                <br/><br/>
-                <input placeholder="Password" type="password" required
-                    name="password"
-                />
-                <br/><br/>
-                <div className="center">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </div>);
+          <>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+            <div className="center">
+                <form onSubmit={submit}>
+                    <h2>Log in to your account</h2>
+                    <br/>
+                    <input placeholder="E-mail" required type='text'
+                        name="email" className="form-control"
+                    />
+                    <br/>
+                    <input placeholder="Password" type="password" required
+                        name="password" className="form-control"
+                    />
+                    <br/>
+                    <div className="center">
+                        <button className="btn btn-primary btn-width" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+          </>
+       );
     }
 };

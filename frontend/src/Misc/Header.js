@@ -58,10 +58,23 @@ export default function Header(props) {
         </>
       )
     } else {
-        return (
-        <header>
-            <h1 onClick={goHome} className='pointer'>Webster</h1>
-            <span><a href="/login">Login</a> or <a href="/register">Register</a></span>
-        </header>)
+      return (
+        // <header>
+        //     <h1 onClick={goHome} className='pointer'>Webster</h1>
+        //     <span><a href="/login">Login</a> or <a href="/register">Register</a></span>
+        // </header>
+        <>
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+          <header className="navbar navbar-light navbar-expand-lg nav-border">
+            <div className="container-fluid">
+              <a onClick={goHome} className="navbar-brand" href="#">Webster</a>
+              <div className="d-flex">
+                <a href="/login" className="btn btn-outline-primary me-2">Login</a>
+                <a href="/register" onClick={logout} className="btn btn-outline-success">Register</a>
+              </div>
+            </div>
+          </header>
+        </>
+      )
     }
 };
