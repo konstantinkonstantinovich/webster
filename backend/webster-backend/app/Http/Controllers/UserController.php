@@ -44,7 +44,6 @@ class UserController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-
     public function forgot_password(Request $request){
       $user = User::where('email', '=', $request->only(['email']))->first();
       $token = Str::random(20);
@@ -62,5 +61,20 @@ class UserController extends Controller
             'remember_token' => NULL,
             'password' => Hash::make($request->all()['password'])
         ]);
+    }
+
+    public function user_profile(Request $request, $user_id = null) {
+        if(!$user_id && !(auth()->user()))
+            return response()->json(['error' => 'No information'], 400);
+
+        if(!$user_id) {
+            $user = auth()->user();
+        }
+        else{
+            $user = User::find($user_id);
+        }
+        $user->avatar = asset($user->avatar);
+
+        return response()->json($user, 200);
     }
 }
