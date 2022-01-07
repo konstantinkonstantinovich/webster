@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
 class AuthController extends Controller
@@ -18,6 +21,10 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
+
+        if (auth()->user()) {
+            return response()->json(auth()->user(), 200);
+        }
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6'
@@ -27,7 +34,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (!$token = auth()->attempt($validator->validated())) {
+        if (! $token = auth()->attempt($validator->validated())) {
             $message = [
                "error" => 'Unauthorized',
                "message" => 'Login or password are incorrect'
