@@ -6,7 +6,6 @@ yarn-error.log
 .DS_Store
 
 .idea
-
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
