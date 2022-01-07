@@ -6,6 +6,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import './Home/home.css'
 
 import Registration from './Registration/Registration'
 import Login from "./Login/Login";
@@ -30,27 +31,31 @@ function App() {
     const [token, setToken] = useState(Cookies.get('token'));
 
     return (
-    <div className="holy-grail">
-      <Header token={token} setToken={setToken}/>
-      <main className="holy-grail-body">
-        <main className="holy-grail-content">
-        <Router>
-        <Switch>
-            <Route path="/login">
-              <Login setToken={setToken}/>
-            </Route>
-            <Route path="/register">
-              <Registration setToken={setToken}/>
-            </Route>
-            <Route path="/">
-              <Home/>
-            </Route>
-          </Switch>
-        </Router>
-        </main>
-      </main>
-      <Footer/>
-    </div>
+      <>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+
+        <div className="holy-grail">
+          <Header token={token} setToken={setToken}/>
+          <main className="holy-grail-body body-content">
+            <main className="container">
+            <Router>
+            <Switch>
+                <Route path="/login">
+                  <Login setToken={setToken}/>
+                </Route>
+                <Route path="/register">
+                  <Registration setToken={setToken}/>
+                </Route>
+                <Route path="/">
+                  <Home/>
+                </Route>
+              </Switch>
+            </Router>
+            </main>
+          </main>
+          <Footer/>
+        </div>
+      </>
     );
 }
 
