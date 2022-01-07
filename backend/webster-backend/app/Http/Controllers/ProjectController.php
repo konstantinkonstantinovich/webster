@@ -16,11 +16,18 @@ class ProjectController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function get_all_projects(Request $request) {
+    public function get_user_projects(Request $request) {
         $user = auth()->user();
         if($user){
-            $projects = Project::all();
-            return $projects;
+            return $user->projects();
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function get_all_projects(Request $request) {
+        if(auth()->user()){
+            return Projects::paginate(20);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
