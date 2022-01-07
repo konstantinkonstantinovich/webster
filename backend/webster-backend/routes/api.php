@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,5 +34,14 @@ Route::group([
 
 ], function ($router) {
     Route::get('/progects', [ProjectController::class, 'get_all_projects']);
-    Route::get('/progects/:id', [ProjectController::class, 'get_project']);
+    Route::get('/progects/{id}', [ProjectController::class, 'get_project']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'user'
+
+], function ($router) {
+    Route::post('/update', [UserController::class, 'user_update']);
+    Route::get('/avatar/{user_id}', [UserController::class, 'get_avatar']);
 });
