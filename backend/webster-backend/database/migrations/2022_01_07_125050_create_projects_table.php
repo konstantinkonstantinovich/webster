@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->json('data');
+            $table->string('title')->default("Untitled");
             $table->string('preview')->nullable();
             $table->boolean('public')->default(false);
             $table->unsignedBigInteger('user_id');
