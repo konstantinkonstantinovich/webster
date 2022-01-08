@@ -51,6 +51,10 @@ class ProjectController extends Controller
                 return response()->json(['error' => 'Could not data'], 400);
 
             $project->data = json_encode($request->data);
+
+            if($request->title)
+                $project->title = $request->title;
+
             if($request->public)
                 $project->public = intval($request->public);
            
