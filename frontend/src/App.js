@@ -10,6 +10,7 @@ import './Home/home.css'
 
 import Registration from './Registration/Registration'
 import Login from "./Login/Login";
+import Forgot from "./Login/Forgot";
 import Home from './Home/Home'
 import Profile from './Profile/Profile'
 import Header from './Misc/Header'
@@ -43,6 +44,9 @@ function App() {
             <Switch>
                 <Route path="/login">
                   <Login setToken={setToken}/>
+                </Route>
+                <Route path="/forgot">
+                  <Forgot/>
                 </Route>
                 <Route path="/register">
                   <Registration setToken={setToken}/>

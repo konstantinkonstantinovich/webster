@@ -63,6 +63,8 @@ class UserController extends Controller
 
     public function forgot_password(Request $request){
       $user = User::where('email', '=', $request->only(['email']))->first();
+      if (!$user) return;
+
       $token = Str::random(20);
       $user->remember_token = $token;
       $user->save();

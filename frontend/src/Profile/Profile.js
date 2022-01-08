@@ -29,7 +29,7 @@ export default function Profile(props) {
     }
 
     const deleteUser = () => {
-        axios.delete('api/users/' + Cookies.get('id')).then(function (response) {
+        axios.delete('user/delete').then(function (response) {
             if (response.status === 200) {
                 Cookies.remove('token')
                 window.location.href = "/home" // TODO setToken from app.js for history
