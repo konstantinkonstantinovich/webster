@@ -33,6 +33,16 @@ class UserController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
+    public function user_delete(Request $request) {
+        $user = auth()->user();
+
+        if($user) {
+            $user->delete();
+            return response()->json(['message' => 'User delete'], 200);
+        }
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
     public function get_avatar(Request $request, $user_id) {
         if(auth()->user()) {
             $find_user = User::find($user_id);
