@@ -1,3 +1,35 @@
 .body-content {
   background: #fbfbfb;
 }
+
+.body {
+  width: 100%;
+}
+
+.banner-size {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 3px #ebebeb;
+}
+
+.title-text {
+  color: #0e1318;
+  font-size: 3.2rem;
+}
+
+.banner-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.btn-violet {
+  color: #fff;
+  background: #7d2ae8;
+}

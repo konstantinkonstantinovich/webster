@@ -44,6 +44,9 @@ export default function Header(props) {
                   <li className="nav-item">
                     <a className="nav-link-my active-my" aria-current="page" href="#">Home</a>
                   </li>
+                  <li className="nav-item">
+                    <a className="nav-link-my" aria-current="page" href="#">Projects</a>
+                  </li>
                 </ul>
               </div>
               <div className="d-flex">
