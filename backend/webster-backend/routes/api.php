@@ -35,10 +35,11 @@ Route::group([
     'middleware' => 'api'
 
 ], function ($router) {
-    Route::get('/progects', [ProjectController::class, 'get_all_projects']);
-    Route::get('/progects/{id}', [ProjectController::class, 'get_project']);
-    Route::get('/user/progects', [ProjectController::class, 'get_user_projects']);
-    Route::post('/progects/{id}/save', [ProjectController::class, 'save_project']);
+    Route::get('/projects/{id}', [ProjectController::class, 'get_project']);
+    Route::get('/projects', [ProjectController::class, 'get_all_projects']);
+
+    Route::get('/user/progjects', [ProjectController::class, 'get_user_projects']);
+    Route::post('/projects/{id}/save', [ProjectController::class, 'save_project']);
 });
 
 Route::group([
