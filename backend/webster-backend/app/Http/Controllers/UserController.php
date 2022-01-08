@@ -62,7 +62,7 @@ class UserController extends Controller
             'remember_token' => NULL,
             'password' => Hash::make($request->all()['password'])
         ]);
-              return response()->json(['Success' => 'Password was reset!'], 200);
+        return response()->json(['Success' => 'Password was reset!'], 200);
     }
 
     public function user_profile(Request $request, $user_id = null) {
