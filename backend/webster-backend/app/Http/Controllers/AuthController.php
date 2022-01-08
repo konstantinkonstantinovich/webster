@@ -66,10 +66,10 @@ class AuthController extends Controller
           'email' => $user->email
         ];
 
-        // Mail::send('mail', $data, function ($m) use ($user) { //FIXME dosnt work, Cannot send message without a sender address
-        //     $m->subject('Varify mail!');
-        //     $m->to($user->email);
-        // });
+        Mail::send('mail', $data, function ($m) use ($user) { //FIXME dosnt work, Cannot send message without a sender address
+            $m->subject('Varify mail!');
+            $m->to($user->email);
+        });
 
         return response()->json($this->createNewToken(JWTAuth::fromUser($user)), 201);
     }

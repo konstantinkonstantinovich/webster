@@ -1,0 +1,9 @@
+.padding-in-block {
+  padding-top: 5rem;
+}
+
+.text-block {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}

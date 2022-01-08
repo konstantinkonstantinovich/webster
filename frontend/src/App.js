@@ -37,7 +37,7 @@ function App() {
         <div className="holy-grail">
           <Header token={token} setToken={setToken}/>
           <main className="holy-grail-body body-content">
-            <main className="container">
+            <main className="body">
             <Router>
             <Switch>
                 <Route path="/login">
