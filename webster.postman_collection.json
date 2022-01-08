@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8000/api/auth/registration?email=gfd@j.com&login=FDsdsd&password=12345678&password_confirmation=12345678",
+			"name": "registration",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -14,13 +14,22 @@
 						"key": "Accept",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8000/api/auth/registration?email=gfd@j.com&login=FDsdsd&password=12345678&password_confirmation=12345678",
+					"raw": "http://127.0.0.1:8000/api/auth/registration?email=example.konstantin@gmail.com&login=test2&password=12345678&password_confirmation=12345678",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
@@ -31,11 +40,11 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "gfd@j.com"
+							"value": "example.konstantin@gmail.com"
 						},
 						{
 							"key": "login",
-							"value": "FDsdsd"
+							"value": "test2"
 						},
 						{
 							"key": "password",
@@ -51,7 +60,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/auth/login?email=gfd@j.com&password=12345678",
+			"name": "login",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -62,10 +71,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8000/api/auth/login?email=gfd@j.com&password=12345678",
+					"raw": "http://127.0.0.1:8000/api/auth/login?email=example.konstantin@gmail.com&password=12345678",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
@@ -76,7 +88,7 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "gfd@j.com"
+							"value": "example.konstantin@gmail.com"
 						},
 						{
 							"key": "password",
@@ -88,148 +100,82 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/user/update",
+			"name": "logout",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0MTU3MzM2OCwiZXhwIjoxNjQxNTc2OTY4LCJuYmYiOjE2NDE1NzMzNjgsImp0aSI6ImUybWd1R25RQWRZdlRhd2ciLCJzdWIiOjMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.6eDT2ytkK9Gu9cpjd7fvBrIeVAzj7xFP1xnegcwElxs",
+							"value": "",
 							"type": "string"
 						}
 					]
 				},
 				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "avatar",
-							"type": "file",
-							"src": "/home/kvantonio/Desktop/db_diagram.png"
-						},
-						{
-							"key": "login",
-							"value": "Vladddsfds",
-							"type": "text"
-						}
-					]
-				},
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/user/update",
+					"raw": "http://127.0.0.1:8000/api/auth/logout",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
 						"api",
-						"user",
-						"update"
-					],
-					"query": [
-						{
-							"key": "login",
-							"value": "Vlaaaaad",
-							"disabled": true
-						},
-						{
-							"key": "avatar",
-							"value": "db_diagram.png",
-							"disabled": true
-						}
+						"auth",
+						"logout"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/user/profile",
+			"name": "user profile",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0MTU3NTczMCwiZXhwIjoxNjQxNTc5MzMwLCJuYmYiOjE2NDE1NzU3MzAsImp0aSI6IlJWY1ZEaEkxdHNRVmpaUGMiLCJzdWIiOjMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.g5P5UacNMelbe7JGP0ThZW-nNgafJJ62Yc4hfK_KLLw",
+							"value": "",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/user/profile",
+					"raw": "http://127.0.0.1:8000/api/auth/user-profile",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
 						"api",
-						"user",
-						"profile"
+						"auth",
+						"user-profile"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/user/forgot_password?email=gfd@j.com",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8000/api/user/forgot_password?email=gfd@j.com",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"user",
-						"forgot_password"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "gfd@j.com"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8000/api/user/profile/2",
+			"name": "user profile another",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0MTU3NTczMCwiZXhwIjoxNjQxNTc5MzMwLCJuYmYiOjE2NDE1NzU3MzAsImp0aSI6IlJWY1ZEaEkxdHNRVmpaUGMiLCJzdWIiOjMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.g5P5UacNMelbe7JGP0ThZW-nNgafJJ62Yc4hfK_KLLw",
+							"value": "",
 							"type": "string"
 						}
 					]
@@ -254,6 +200,304 @@
 						"user",
 						"profile",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "login",
+							"value": "Tes USSSER",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgot password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/user/forgot_password?email=example.konstantin@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"forgot_password"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "example.konstantin@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user/reset_password_link/2wMXZIchltqyCSkazXpb?password=123456789&password_confirmation=123456789",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"reset_password_link",
+						"2wMXZIchltqyCSkazXpb"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": "123456789"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456789"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "['header': 'yoddu are pidor']",
+							"type": "text"
+						},
+						{
+							"key": "preview",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "public",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "['header': 'you are pidor']",
+							"type": "text"
+						},
+						{
+							"key": "preview",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "public",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/projects/1/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"projects",
+						"1",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user projects",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "['header': 'yoddu are pidor']",
+							"type": "text"
+						},
+						{
+							"key": "preview",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "public",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"projects"
 					]
 				}
 			},
