@@ -33,3 +33,46 @@
   color: #fff;
   background: #7d2ae8;
 }
+
+
+.card-custom {
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+img,
+  .card-img-top {
+    border-radius: 5px;
+  }
+  .card-img-bottom {
+    border-radius: 1rem;
+  }
+
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 4;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-columns {
+    column-count: 5;
+  }
+}
+
+.helper-text {
+  margin-top: 10px;
+  color: rgba(17,23,29,.6);
+  margin-bottom: 40px;
+}
