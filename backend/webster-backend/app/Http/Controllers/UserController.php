@@ -13,14 +13,21 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     public function user_update(Request $request) {
+        $request->validate([
+            'login' => 'max:32|min:6',
+            'full_name' => 'max:32|min:6'
+        ]);
         $user = auth()->user();
 
         if($user) {
-            $user->update([
-                'login'=>$request->login,
-                'full_name'=>$request->full_name,
-            ]);
-            if($request["avatar"]){
+            if ($request->filled('login')) {
+                $user->update([
+                    'login'=>$request->login,
+                    'full_name'=>$request->full_name,
+                ]);
+            }
+
+            if ($request["avatar"]){
                 $imageName = auth()->user()->getKey().'name.'.$request->avatar->extension();
                 $request->avatar->move(public_path('storage/images'), $imageName);
                 $path = 'storage/images/'.$imageName;

@@ -50,8 +50,8 @@ export default function Header(props) {
                 </ul>
               </div>
               <div className="d-flex">
-                <span className="navbar-text me-3">Welcome, {user.login} </span>
-                <div className="me-3">
+                <span className="navbar-text me-3 pointer" onClick={()=>{window.location.href = "/profile"}}>Welcome, {user.login} </span>
+                <div className="me-3 pointer" onClick={()=>{window.location.href = "/profile"}}>
                   <img src={"http://127.0.0.1:8000/" + user.avatar} className="rounded-circle image-size"/>
                 </div>
                 <button onClick={logout} className="btn btn-outline-success">Logout</button>
