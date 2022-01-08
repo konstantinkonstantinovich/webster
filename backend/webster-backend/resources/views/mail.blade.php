@@ -3,5 +3,5 @@
   <br>
   Please, verify your email! Click on the link below:
   <br>
-  <a href="#">Varify!</a>
+  <a href="#">Verify!</a>
 </main>

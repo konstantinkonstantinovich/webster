@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GoogleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -51,4 +52,13 @@ Route::group([
     Route::post('/update', [UserController::class, 'user_update']);
     Route::post('/forgot_password', [UserController::class, 'forgot_password']);
     Route::post('/reset_password_link/{token}', [UserController::class, 'reset_password']);
+});
+
+Route::group([
+    'middleware' => ['web'],
+    'prefix' => 'google',
+    'name' => 'google.'
+],function(){
+    Route::get('login', [GoogleController::class, 'login_with_google'])->name('login');
+    Route::any('callback', [GoogleController::class, 'callback_from_google'])->name('callback');
 });
