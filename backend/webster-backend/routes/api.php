@@ -37,8 +37,7 @@ Route::group([
 ], function ($router) {
     Route::get('/projects/{id}', [ProjectController::class, 'get_project']);
     Route::get('/projects', [ProjectController::class, 'get_all_projects']);
-
-    Route::get('/user/progjects', [ProjectController::class, 'get_user_projects']);
+    Route::get('/user/projects', [ProjectController::class, 'get_user_projects']);
     Route::post('/projects/{id}/save', [ProjectController::class, 'save_project']);
 });
 
@@ -50,8 +49,6 @@ Route::group([
     Route::get('/profile', [UserController::class, 'user_profile']);
     Route::get('/profile/{user_id}', [UserController::class, 'user_profile']);
     Route::post('/update', [UserController::class, 'user_update']);
-
-    Route::get('/avatar/{user_id}', [UserController::class, 'get_avatar']);
     Route::post('/forgot_password', [UserController::class, 'forgot_password']);
     Route::post('/reset_password_link/{token}', [UserController::class, 'reset_password']);
 });
