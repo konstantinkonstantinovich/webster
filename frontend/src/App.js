@@ -11,6 +11,7 @@ import './Home/home.css'
 import Registration from './Registration/Registration'
 import Login from "./Login/Login";
 import Home from './Home/Home'
+import Profile from './Profile/Profile'
 import Header from './Misc/Header'
 import Footer from './Misc/Footer'
 
@@ -45,6 +46,9 @@ function App() {
                 </Route>
                 <Route path="/register">
                   <Registration setToken={setToken}/>
+                </Route>
+                <Route path="/profile">
+                  <Profile/>
                 </Route>
                 <Route path="/">
                   <Home/>
