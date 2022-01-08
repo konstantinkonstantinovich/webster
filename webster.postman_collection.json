@@ -326,6 +326,65 @@
 			"response": []
 		},
 		{
+			"name": "all public progects",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "['header': 'yoddu are pidor']",
+							"type": "text"
+						},
+						{
+							"key": "preview",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "public",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "project",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -386,64 +445,6 @@
 			"response": []
 		},
 		{
-			"name": "save project",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "data",
-							"value": "['header': 'you are pidor']",
-							"type": "text"
-						},
-						{
-							"key": "preview",
-							"type": "file",
-							"src": "/home/kvantonio/Desktop/db_diagram.png"
-						},
-						{
-							"key": "public",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/projects/1/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"projects",
-						"1",
-						"save"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "user projects",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -498,6 +499,64 @@
 						"api",
 						"user",
 						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "['header': 'you are pidor']",
+							"type": "text"
+						},
+						{
+							"key": "preview",
+							"type": "file",
+							"src": "/home/kvantonio/Desktop/db_diagram.png"
+						},
+						{
+							"key": "public",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/projects/1/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"projects",
+						"1",
+						"save"
 					]
 				}
 			},
