@@ -34,7 +34,7 @@ export default function Login(props) {
         return (
           <>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
-            <div className="center">
+            <div className="center padding-in-block">
                 <form onSubmit={submit}>
                     <h2>Log in to your account</h2>
                     <br/>
@@ -47,7 +47,15 @@ export default function Login(props) {
                     />
                     <br/>
                     <div className="center">
-                        <button className="btn btn-primary btn-width" type="submit">Submit</button>
+                        <button className="btn btn-primary btn-width" type="submit">Sign in</button>
+                    </div>
+                    <br/>
+                    <div>
+                      <span><a href="/login" className="link-style">forgot password?</a></span>
+                    </div>
+                    <div className="center text-block">
+                      <span className="me-2">New to Webster?</span>
+                      <span><a href="/register">Sign up</a></span>
                     </div>
                 </form>
             </div>
