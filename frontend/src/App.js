@@ -13,6 +13,7 @@ import Login from "./Login/Login";
 import Forgot from "./Login/Forgot";
 import Home from './Home/Home'
 import Profile from './Profile/Profile'
+import Projects from './Projects/Projects'
 import Header from './Misc/Header'
 import Footer from './Misc/Footer'
 
@@ -50,6 +51,9 @@ function App() {
                 </Route>
                 <Route path="/register">
                   <Registration setToken={setToken}/>
+                </Route>
+                <Route path="/projects">
+                  <Projects/>
                 </Route>
                 <Route path="/profile">
                   <Profile/>
