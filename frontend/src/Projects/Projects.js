@@ -1,40 +1,30 @@
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useHistory } from 'react-router-dom';
-import Project from "./Project";
+import { useEffect, useState } from 'react';
+import Loader from '../Misc/Loader';
+import Project from './Project';
+import axios from 'axios';
 
-const axios = require('axios').default;
-export default function Projects(params) {
-    let [loading, setLoading] = useState(true);
-    let [projects, setProjects] = useState([]);
-    const history = useHistory();
-
-    const loadProjects = () => {
-        axios.get('auth/user').then(function (response) {
-            axios.get('projects').then(function (response) {
-                setProjects(response.data)
-                setLoading(false)
-            }).catch(function (error) {
-                history.push('/');
-            });
-        }).catch(function (error) {
-            history.push('/');
-        });
-    }
+export default () => {
+    const [loading, setLoading] = useState(true);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        loadProjects();
+        axios
+            .get('/projects')
+            .then(({ data }) => {
+                console.log(data);
+                setProjects(data);
+                setLoading(false);
+            })
+            .catch((error) => console.error(error));
     }, []);
 
-
-    if (loading) {
-        return (<div className="center">
-            <ClipLoader color="blue" loading={loading} size={100} />
-        </div>);
-    } else {
-        return (<>
-            {projects.map((project)=> <Project {...project}/>)}
-        </>);
-    }
+    return (
+        <>
+            {loading ? (
+                <Loader />
+            ) : (
+                projects.map((project) => <Project {...project} />)
+            )}
+        </>
+    );
 };

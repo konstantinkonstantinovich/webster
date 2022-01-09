@@ -1,74 +1,124 @@
-import Cookies from "js-cookie";
-import { useState } from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-import './Home/home.css'
+import { GuardProvider, GuardedRoute } from 'react-router-guards';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-import Registration from './Registration/Registration'
-import Login from "./Login/Login";
-import Forgot from "./Login/Forgot";
-import Home from './Home/Home'
-import Profile from './Profile/Profile'
-import Projects from './Projects/Projects'
-import Header from './Misc/Header'
-import Footer from './Misc/Footer'
+import Registration from './Registration/Registration';
+import PageNotFound from './Misc/PageNotFound';
+import Projects from './Projects/Projects';
+import Profile from './Profile/Profile';
+import Logout from './Logout/Logout';
+import Forgot from './Login/Forgot';
+import Header from './Misc/Header';
+import Footer from './Misc/Footer';
+import Loader from './Misc/Loader';
+import Login from './Login/Login';
+import Home from './Home/Home';
 
+import './Home/home.css';
 
-const axios = require('axios');
-axios.defaults.baseURL = "http://127.0.0.1:8000/api"
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+
 axios.interceptors.request.use(
     (config) => {
-        if (Cookies.get('token'))
-            config.headers.authorization = `Bearer ${Cookies.get('token')}`
+        const token = Cookies.get('token');
 
-        return config
+        if (token) config.headers.authorization = `Bearer ${token}`;
+
+        return config;
     },
     (error) => Promise.reject(error)
-)
+);
 
-function App() {
-    const [token, setToken] = useState(Cookies.get('token'));
+const AuthGuard = async (_to, _from, next) => {
+    if (Cookies.get('token')) {
+        try {
+            await axios.get('/user/profile');
 
+            return next();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    next.redirect('/login');
+};
+
+const NoAuthGuard = async (_to, _from, next) => {
+    if (Cookies.get('token')) {
+        try {
+            await axios.get('/user/profile');
+
+            return next.redirect('/');
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    next();
+};
+
+export default () => {
     return (
-      <>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
-
         <div className="holy-grail">
-          <Header token={token} setToken={setToken}/>
-          <main className="holy-grail-body body-content">
-            <main className="body">
-            <Router>
-            <Switch>
-                <Route path="/login">
-                  <Login setToken={setToken}/>
-                </Route>
-                <Route path="/forgot">
-                  <Forgot/>
-                </Route>
-                <Route path="/register">
-                  <Registration setToken={setToken}/>
-                </Route>
-                <Route path="/projects">
-                  <Projects/>
-                </Route>
-                <Route path="/profile">
-                  <Profile/>
-                </Route>
-                <Route path="/">
-                  <Home/>
-                </Route>
-              </Switch>
-            </Router>
+            <main className="holy-grail-body body-content">
+                <main className="body">
+                    <BrowserRouter>
+                        <Header />
+                        <GuardProvider loading={Loader}>
+                            <Switch>
+                                <GuardedRoute
+                                    path="/"
+                                    exact
+                                    component={Home}
+                                    guards={[NoAuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/"
+                                    exact
+                                    component={Home}
+                                    guards={[NoAuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/register"
+                                    component={Registration}
+                                    guards={[NoAuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/login"
+                                    component={Login}
+                                    guards={[NoAuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/forgot"
+                                    component={Forgot}
+                                    guards={[NoAuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/logout"
+                                    component={Logout}
+                                    guards={[AuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/projects"
+                                    component={Projects}
+                                    guards={[AuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/profile"
+                                    component={Profile}
+                                    guards={[AuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="*"
+                                    component={PageNotFound}
+                                />
+                            </Switch>
+                        </GuardProvider>
+                        <Footer />
+                    </BrowserRouter>
+                </main>
             </main>
-          </main>
-          <Footer/>
         </div>
-      </>
     );
-}
-
-export default App;
+};
