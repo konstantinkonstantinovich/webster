@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 
-import { serverURL } from '../config';
 import Loader from '../Misc/Loader';
 import './index.css';
 
@@ -31,12 +30,7 @@ export default () => {
     useEffect(() => {
         axios
             .get(`/projects/${id}`)
-            .then(({ data }) =>
-                setProject({
-                    ...data,
-                    content: data.content === serverURL ? null : data.content,
-                })
-            )
+            .then(({ data }) => setProject(data))
             .catch((e) => console.error(e));
     }, []);
 
@@ -57,7 +51,7 @@ export default () => {
 
         instance.ui._actions.main.download = () => {
             const base64 = instance.toDataURL({ format: 'png' });
-            const content = dataURLtoFile(base64, 'board.png');
+            const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
 
             console.log(base64);
             console.log(content);
@@ -66,8 +60,8 @@ export default () => {
 
             formData.append('title', project.title);
             formData.append('public', project.public);
-            formData.append('content', content);
-            formData.append('data', '{}');
+            formData.append('content', base64);
+            formData.append('data', '[]');
 
             axios
                 .post(`/projects/${id}/save`, formData, {
@@ -75,8 +69,12 @@ export default () => {
                         'Content-Type': 'multipart/form-data',
                     },
                 })
-                .then(({ data }) =>
-                    window.location.replace(`/projects/${data.id}/board`)
+                .then(
+                    ({ data }) => console.log(data)
+                    // TODO: uncomment on success
+                    // window.location.replace(
+                    //     `/projects/${data.id}/board`
+                    // )
                 )
                 .catch((e) => console.error(e));
         };

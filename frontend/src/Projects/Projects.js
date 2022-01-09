@@ -51,7 +51,7 @@ export default () => {
                 ) : (
                     <CardGroup>
                         {projects.map((project) => (
-                            <Project {...project} />
+                            <Project key={project.key} {...project} />
                         ))}
                     </CardGroup>
                 )}

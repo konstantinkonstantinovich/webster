@@ -1,78 +1,81 @@
 .body-content {
-  background: #fbfbfb;
+    background: #fbfbfb;
 }
 
 .body {
-  width: 100%;
+    width: 100%;
 }
 
 .banner-size {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 1px 1px 2px 3px #ebebeb;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 3px #ebebeb;
 }
 
 .title-text {
-  color: #0e1318;
-  font-size: 3.2rem;
+    color: #0e1318;
+    font-size: 3.2rem;
 }
 
 .banner-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .content {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .btn-violet {
-  color: #fff;
-  background: #7d2ae8;
+    color: #fff;
+    background: #7d2ae8;
 }
-
 
 .card-custom {
-  border-radius: 5px;
-  margin-bottom: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 img,
-  .card-img-top {
+.card-img-top {
     border-radius: 5px;
-  }
-  .card-img-bottom {
+}
+.card-img-bottom {
     border-radius: 1rem;
-  }
+}
 
 @media (min-width: 576px) {
-  .card-columns {
-    column-count: 2;
-  }
+    .card-columns {
+        column-count: 2;
+    }
 }
 
 @media (min-width: 768px) {
-  .card-columns {
-    column-count: 3;
-  }
+    .card-columns {
+        column-count: 3;
+    }
 }
 
 @media (min-width: 992px) {
-  .card-columns {
-    column-count: 4;
-  }
+    .card-columns {
+        column-count: 4;
+    }
 }
 
 @media (min-width: 1200px) {
-  .card-columns {
-    column-count: 5;
-  }
+    .card-columns {
+        column-count: 5;
+    }
 }
 
 .helper-text {
-  margin-top: 10px;
-  color: rgba(17,23,29,.6);
-  margin-bottom: 40px;
+    margin-top: 10px;
+    color: rgba(17, 23, 29, 0.6);
+    margin-bottom: 40px;
+}
+
+a {
+    text-decoration: none;
 }
