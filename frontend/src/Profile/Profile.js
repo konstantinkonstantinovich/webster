@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
+import { serverURL } from '../config';
 import Loader from '../Misc/Loader';
 
 export default () => {
@@ -24,7 +25,9 @@ export default () => {
     const onFileUpload = () => {
         const formData = new FormData();
         formData.append('avatar', selectedFile, selectedFile.name);
-        axios.post('/user/update', formData).then(() => setLoading(true));
+        axios
+            .post('/user/update', formData)
+            .then(() => window.location.reload());
     };
 
     useEffect(() => {
@@ -35,15 +38,12 @@ export default () => {
                 setUser({
                     ...data,
                     avatar:
-                        data.avatar ===
-                        'http://ucode-webster-fork.herokuapp.com/'
-                            ? null
-                            : data.avatar,
+                        data.avatar === `${serverURL}/` ? null : data.avatar,
                 });
                 setLoading(false);
             })
             .catch((error) => console.error(error));
-    }, [loading]);
+    }, []);
 
     return (
         <>

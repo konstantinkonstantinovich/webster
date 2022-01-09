@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import Gravatr from 'react-gravatar';
 import axios from 'axios';
 
+import { serverURL } from '../config';
+
 import './misc.css';
 
 export default () => {
@@ -15,10 +17,7 @@ export default () => {
                 setUser({
                     ...data,
                     avatar:
-                        data.avatar ===
-                        'http://ucode-webster-fork.herokuapp.com/'
-                            ? null
-                            : data.avatar,
+                        data.avatar === `${serverURL}/` ? null : data.avatar,
                 })
             )
             .catch((error) => console.error(error));
@@ -77,10 +76,7 @@ export default () => {
                             <NavLink to="/profile" className=" me-3 pointer">
                                 {user.avatar ? (
                                     <img
-                                        src={
-                                            'https://ucode-webster-fork.herokuapp.com' +
-                                            user.avatar
-                                        }
+                                        src={user.avatar}
                                         className="rounded-circle image-size"
                                     />
                                 ) : (

@@ -7,6 +7,7 @@ import Registration from './Registration/Registration';
 import PageNotFound from './Misc/PageNotFound';
 import Projects from './Projects/Projects';
 import Profile from './Profile/Profile';
+import { serverSslURL } from './config';
 import Logout from './Logout/Logout';
 import Forgot from './Login/Forgot';
 import Header from './Misc/Header';
@@ -17,7 +18,7 @@ import Home from './Home/Home';
 
 import './Home/home.css';
 
-axios.defaults.baseURL = 'https://ucode-webster-fork.herokuapp.com/api';
+axios.defaults.baseURL = `${serverSslURL}/api`;
 
 axios.interceptors.request.use(
     (config) => {
