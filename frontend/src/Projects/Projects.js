@@ -12,7 +12,7 @@ export default () => {
             .get('/projects')
             .then(({ data }) => {
                 console.log(data);
-                setProjects(data);
+                setProjects(data.data);
                 setLoading(false);
             })
             .catch((error) => console.error(error));

@@ -17,7 +17,7 @@ import Home from './Home/Home';
 
 import './Home/home.css';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+axios.defaults.baseURL = 'https://ucode-webster-fork.herokuapp.com/api';
 
 axios.interceptors.request.use(
     (config) => {
@@ -36,9 +36,7 @@ const AuthGuard = async (_to, _from, next) => {
             await axios.get('/user/profile');
 
             return next();
-        } catch (e) {
-            console.error(e);
-        }
+        } catch {}
     }
 
     next.redirect('/login');
@@ -50,9 +48,7 @@ const NoAuthGuard = async (_to, _from, next) => {
             await axios.get('/user/profile');
 
             return next.redirect('/');
-        } catch (e) {
-            console.error(e);
-        }
+        } catch {}
     }
 
     next();
@@ -67,12 +63,6 @@ export default () => {
                         <Header />
                         <GuardProvider loading={Loader}>
                             <Switch>
-                                <GuardedRoute
-                                    path="/"
-                                    exact
-                                    component={Home}
-                                    guards={[NoAuthGuard]}
-                                />
                                 <GuardedRoute
                                     path="/"
                                     exact

@@ -15,7 +15,7 @@ export default () => {
             .then(({ data }) => {
                 console.log(data);
                 Cookies.set('token', data.access_token, { expires: 1 });
-                setTimeout(() => location.replace('/'), 300);
+                window.location.replace('/');
             })
             .catch((error) => console.error(error));
     };

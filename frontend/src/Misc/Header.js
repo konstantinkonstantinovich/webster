@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Gravatr from 'react-gravatar';
 import axios from 'axios';
 
 import './misc.css';
@@ -10,13 +11,17 @@ export default () => {
     useEffect(() => {
         axios
             .get('/user/profile')
-            .then(({ data }) => {
-                setUser(data.user);
-            })
-            .catch((error) => {
-                console.error(error);
-                return; // not logged in
-            });
+            .then(({ data }) =>
+                setUser({
+                    ...data,
+                    avatar:
+                        data.avatar ===
+                        'http://ucode-webster-fork.herokuapp.com/'
+                            ? null
+                            : data.avatar,
+                })
+            )
+            .catch((error) => console.error(error));
     }, []);
 
     return (
@@ -70,10 +75,20 @@ export default () => {
                                 Welcome{user.login ? `, ${user.login}` : ''}
                             </NavLink>
                             <NavLink to="/profile" className=" me-3 pointer">
-                                <img
-                                    src={'http://127.0.0.1:8000/' + user.avatar}
-                                    className="rounded-circle image-size"
-                                />
+                                {user.avatar ? (
+                                    <img
+                                        src={
+                                            'https://ucode-webster-fork.herokuapp.com' +
+                                            user.avatar
+                                        }
+                                        className="rounded-circle image-size"
+                                    />
+                                ) : (
+                                    <Gravatr
+                                        email={user.email}
+                                        className="rounded-circle image-size"
+                                    />
+                                )}
                             </NavLink>
                             <NavLink
                                 to="/logout"
