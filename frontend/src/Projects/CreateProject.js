@@ -20,9 +20,9 @@ export default ({ show, onHide, appendProject }) => {
 
         const formData = new FormData();
 
-        formData.append('title', values.title);
+        values.title && formData.append('title', values.title);
+        preview && formData.append('preview', preview);
         formData.append('public', values.public);
-        formData.append('preview', preview);
 
         axios
             .post('/projects/new', formData, {
@@ -32,7 +32,7 @@ export default ({ show, onHide, appendProject }) => {
             })
             .then(({ data }) => {
                 console.log(data);
-                appendProject(data);
+                appendProject(data.project);
                 onHide();
             })
             .catch((e) => console.error(e));
@@ -86,7 +86,6 @@ export default ({ show, onHide, appendProject }) => {
                                         );
                                         handleChange(e);
                                     }}
-                                    required
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formPublic">
