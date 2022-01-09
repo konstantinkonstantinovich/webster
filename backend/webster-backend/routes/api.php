@@ -38,6 +38,7 @@ Route::group([
 
 ], function ($router) {
     Route::get('/projects/{id}', [ProjectController::class, 'get_project']);
+    Route::post('/projects/new', [ProjectController::class, 'new_project']);
     Route::get('/projects', [ProjectController::class, 'get_all_projects']);
     Route::get('/user/projects', [ProjectController::class, 'get_user_projects']);
     Route::post('/projects/{id}/save', [ProjectController::class, 'save_project']);

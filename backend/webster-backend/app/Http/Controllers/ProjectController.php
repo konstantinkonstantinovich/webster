@@ -36,6 +36,21 @@ class ProjectController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
+    public function new_project(Request $request, $id) {
+        $user = auth()->user();
+
+        if($user) {
+            $project = new Project;
+            $project->user_id = $user->id;
+            $project->data = json_encode([]);
+            $project->save();
+            return response()->json(['project' =>Project::find($project->id),
+            'redirect_to' => url("api/projects/{$project->id}")], 200);
+        }
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+
     # TODO: fix saving if project id does not exist
     # (redirect user to this id fix this problem)
     public function save_project(Request $request, $id) {
