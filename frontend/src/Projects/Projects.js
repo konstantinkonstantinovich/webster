@@ -1,5 +1,5 @@
+import { Button, CardGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 import CreateProject from './CreateProject';
@@ -12,7 +12,19 @@ export default () => {
     const [isModalShown, setIsModalShown] = useState(false);
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState([]);
-    const [paginator, setPaginator] = useState({}); // TODO: pagination fields from response
+    const [paginator, setPaginator] = useState({
+        next_page_url: null,
+        current_page: 1,
+        per_page: 10,
+        total: 0,
+    });
+
+    const appendProject = (project) =>
+        setProjects((projects) => {
+            if (projects.length === paginator.per_page) return projects;
+
+            return [...project, project];
+        });
 
     useEffect(() => {
         axios
@@ -31,19 +43,24 @@ export default () => {
         <div className="project-page">
             <div className="project-control-panel">
                 <Button variant="primary" onClick={() => setIsModalShown(true)}>
-                    Launch vertically centered modal
+                    Create new project
                 </Button>
             </div>
             <div className="project-list">
                 {loading ? (
                     <Loader />
                 ) : (
-                    projects.map((project) => <Project {...project} />)
+                    <CardGroup>
+                        {projects.map((project) => (
+                            <Project {...project} />
+                        ))}
+                    </CardGroup>
                 )}
             </div>
             <CreateProject
                 show={isModalShown}
                 onHide={() => setIsModalShown(false)}
+                appendProject={appendProject}
             />
         </div>
     );
