@@ -1,12 +1,10 @@
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import './login.css';
 
 export default () => {
-    const history = useHistory();
-
     const submit = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -17,7 +15,7 @@ export default () => {
             .then(({ data }) => {
                 console.log(data);
                 Cookies.set('token', data.access_token, { expires: 1 });
-                setTimeout(() => history.push('/'), 300);
+                setTimeout(() => location.replace('/'), 300);
             })
             .catch((error) => console.error(error));
     };
