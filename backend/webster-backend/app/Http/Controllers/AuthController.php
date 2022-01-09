@@ -76,7 +76,7 @@ class AuthController extends Controller
 
         return response()->json(
           [
-            'token' => $this->createNewToken(JWTAuth::fromUser($user)),
+            // 'token' => $this->createNewToken(JWTAuth::fromUser($user)),
             'route' => route('verify_email', ['token' => Str::random(20)])
           ],201
         );
