@@ -11,7 +11,7 @@ export default () => {
         axios
             .get('/user/profile')
             .then(({ data }) => {
-                setUser(data.user);
+                setUser(data);
             })
             .catch((error) => {
                 console.error(error);
