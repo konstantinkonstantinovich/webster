@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\VerificationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,6 +54,7 @@ Route::group([
     Route::post('/update', [UserController::class, 'user_update']);
     Route::post('/forgot_password', [UserController::class, 'forgot_password']);
     Route::post('/reset_password_link/{token}', [UserController::class, 'reset_password']);
+    Route::patch('/vefify_email/{token}', [VerificationController::class, 'verify'])->name('verify_email');
 });
 
 Route::group([

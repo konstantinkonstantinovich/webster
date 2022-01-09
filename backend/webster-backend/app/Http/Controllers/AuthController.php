@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Mail;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -62,16 +63,23 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+        $path = route('verify_email', ['token' => Str::random(20)]);
         $data = [
-          'email' => $user->email
+          'email' => $user->email,
+          'path' => $path
         ];
 
-        Mail::send('mail', $data, function ($m) use ($user) { //FIXME dosnt work, Cannot send message without a sender address
+        Mail::send('mail', $data, function ($m) use ($user) {
             $m->subject('Varify mail!');
             $m->to($user->email);
         });
 
-        return response()->json($this->createNewToken(JWTAuth::fromUser($user)), 201);
+        return response()->json(
+          [
+            'token' => $this->createNewToken(JWTAuth::fromUser($user)),
+            'route' => route('verify_email', ['token' => Str::random(20)])
+          ],201
+        );
     }
 
     public function logout() {
