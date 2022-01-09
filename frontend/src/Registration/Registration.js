@@ -24,7 +24,6 @@ export default () => {
                     expires: 1,
                 });
                 window.location.replace('/');
-                setTimeout(() => window.location.replace('/'), 300);
             })
             .catch((error) => console.log(error));
     };
@@ -73,7 +72,7 @@ export default () => {
                 </div>
                 <br />
                 <div className="center text-block">
-                    <span class="me-2">Already signed up?</span>
+                    <span className="me-2">Already signed up?</span>
                     <span>
                         <NavLink to="/login">Log in</NavLink>
                     </span>
