@@ -1,0 +1,31 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import axios from 'axios';
+
+import Loader from './Loader';
+import { useState } from "react";
+
+export default function Verification(params) {
+    const { remember_token } = useParams()
+    const [loading, setLoading] = useState(true);
+
+    axios
+    .post('/user/vefify_email', { remember_token })
+    .then(({ data }) => {
+        setLoading(false);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    return (<>
+        {loading ? (
+            <Loader />
+        ) : (
+            <>
+            <h1 className='center'>Your account was successfully verified!</h1>
+            <Link className='center' to='/login'>Start using Webster</Link>
+            </>
+        )}
+    </>)
+};

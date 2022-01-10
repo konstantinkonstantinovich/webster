@@ -13,6 +13,7 @@ import Forgot from './Login/Forgot';
 import Header from './Misc/Header';
 import Footer from './Misc/Footer';
 import Loader from './Misc/Loader';
+import Verification from './Misc/Verification';
 import Login from './Login/Login';
 import Board from './Board/Board';
 import Home from './Home/Home';
@@ -100,6 +101,10 @@ export default () => {
                                     path="/projects"
                                     component={Projects}
                                     guards={[AuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/verification/:remember_token"
+                                    component={Verification}
                                 />
                                 <GuardedRoute
                                     path="/profile"
