@@ -63,7 +63,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        $path = route('verify_email', ['token' => Str::random(20)]);
+        $path = "http://localhost:3000/verification/".Str::random(20);
         $data = [
           'email' => $user->email,
           'path' => $path
@@ -77,7 +77,7 @@ class AuthController extends Controller
         return response()->json(
           [
             // 'token' => $this->createNewToken(JWTAuth::fromUser($user)),
-            'route' => route('verify_email', ['token' => Str::random(20)])
+            'route' => $path
           ],201
         );
     }
