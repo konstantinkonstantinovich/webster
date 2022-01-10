@@ -13,6 +13,7 @@ export default function Verification(params) {
     .patch('/user/vefify_email/' + remember_token)
     .then(({ data }) => {
         setLoading(false);
+        console.log(remember_token)
     })
     .catch((error) => {
         console.log(error);
@@ -23,8 +24,11 @@ export default function Verification(params) {
             <Loader />
         ) : (
             <>
-            <h1 className='center'>Your account was successfully verified!</h1>
-            <Link className='center' to='/login'>Start using Webster</Link>
+              <div className="message-block">
+                <span className="center icon-size"><i className="bi bi-check-circle"></i></span>
+                <h1 className='center'>Your account was successfully verified!</h1>
+                <Link className='center' to='/login'>Start using Webster</Link>
+              </div>
             </>
         )}
     </>)
