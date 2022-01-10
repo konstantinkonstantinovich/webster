@@ -10,7 +10,7 @@ export default function Verification(params) {
     const [loading, setLoading] = useState(true);
 
     axios
-    .patch('/user/vefify_email', { remember_token })
+    .patch('/user/vefify_email/' + remember_token)
     .then(({ data }) => {
         setLoading(false);
     })
