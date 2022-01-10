@@ -14,6 +14,7 @@ import Header from './Misc/Header';
 import Footer from './Misc/Footer';
 import Loader from './Misc/Loader';
 import Login from './Login/Login';
+import Board from './Board/Board';
 import Home from './Home/Home';
 
 import './Home/home.css';
@@ -88,6 +89,11 @@ export default () => {
                                 <GuardedRoute
                                     path="/logout"
                                     component={Logout}
+                                    guards={[AuthGuard]}
+                                />
+                                <GuardedRoute
+                                    path="/projects/:id/board"
+                                    component={Board}
                                     guards={[AuthGuard]}
                                 />
                                 <GuardedRoute

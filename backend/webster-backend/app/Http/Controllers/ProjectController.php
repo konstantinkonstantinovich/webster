@@ -36,13 +36,17 @@ class ProjectController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function new_project(Request $request, $id) {
+    public function new_project(Request $request) {
         $user = auth()->user();
 
         if($user) {
             $project = new Project;
             $project->user_id = $user->id;
             $project->data = json_encode([]);
+            if($request->public)
+                $project->public = true;
+            
+            $project->content = asset("storage/standart_project_background.png");
             $project->save();
             return response()->json(['project' =>Project::find($project->id),
             'redirect_to' => url("api/projects/{$project->id}")], 200);
@@ -62,8 +66,8 @@ class ProjectController extends Controller
                 $project->user_id = $user->id;
             }
 
-            if(!$request->data)
-                return response()->json(['error' => 'Could not data'], 400);
+            if(!$request->data || !$request->content)
+                return response()->json(['error' => 'Could not data or content'], 400);
 
             $project->data = json_encode($request->data);
 
@@ -81,9 +85,17 @@ class ProjectController extends Controller
                 $path = 'storage/projects_preview/'.$imageName;
                 $project->update(['preview' => $path]);
                 $project->preview = asset($path);
-
-                $project->save();
             }
+
+            $background_image = "content_progect_id_{$project->id}.".$request->content->extension();
+            $request->content->move(public_path('storage/projects_content'), $background_image);
+            $path = 'storage/projects_content/'.$background_image;
+            $project->update(['content' => $path]);
+            $project->content = asset($path);
+
+            $project->save();
+
+            
             
             return response()->json(['project' =>Project::find($project->id),
             'redirect_to' => url("api/projects/{$project->id}")], 200);

@@ -23,7 +23,7 @@ export default () => {
         setProjects((projects) => {
             if (projects.length === paginator.per_page) return projects;
 
-            return [...project, project];
+            return [...projects, project];
         });
 
     useEffect(() => {
@@ -32,7 +32,6 @@ export default () => {
             .then(({ data }) => {
                 console.log(data);
                 setProjects(data.data);
-                delete data.data;
                 setPaginator(data);
                 setLoading(false);
             })
@@ -52,7 +51,7 @@ export default () => {
                 ) : (
                     <CardGroup>
                         {projects.map((project) => (
-                            <Project {...project} />
+                            <Project key={project.key} {...project} />
                         ))}
                     </CardGroup>
                 )}

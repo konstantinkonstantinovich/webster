@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->json('data');
             $table->string('title')->default("Untitled");
+            $table->string('content');
             $table->string('preview')->nullable();
             $table->boolean('public')->default(false);
             $table->unsignedBigInteger('user_id');
