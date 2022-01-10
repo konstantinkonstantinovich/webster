@@ -1,2 +1,2 @@
-export const serverURL = 'http://ucode-webster-fork.herokuapp.com';
-export const serverSslURL = 'https://ucode-webster-fork.herokuapp.com';
+export const serverURL = ' http://127.0.0.1:3000';
+export const serverSslURL = 'http://127.0.0.1:8000';
