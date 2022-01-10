@@ -105,7 +105,7 @@ export default () => {
                                 to="/register"
                                 className="btn btn-outline-success"
                             >
-                                Register
+                                Sign up
                             </NavLink>
                         </>
                     )}

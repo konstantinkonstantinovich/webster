@@ -41,12 +41,8 @@ export default () => {
                         </button>
                     </div>
                     <br />
-                    <div className="center text-block">
-                        <span className="me-2">New to Webster?</span>
-                        <span>
-                            <NavLink to="/register">Sign up</NavLink>
-                        </span>
-                    </div>
+                    
+                    <p className="text-center me-2">New to Webster? <NavLink to="/forgot">Sign up</NavLink></p>
                 </form>
             </div>
         </>

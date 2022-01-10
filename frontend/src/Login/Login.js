@@ -17,7 +17,17 @@ export default () => {
                 Cookies.set('token', data.access_token, { expires: 1 });
                 window.location.replace('/');
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                if (error.response) {
+                    const err = error.response.data;
+
+                    Object.keys(err).forEach(function(key) {
+                        if (err[key] != 'Unauthorized') {
+                            alert(err[key])
+                        }
+                    })
+                }
+            });
     };
 
     return (
@@ -47,15 +57,9 @@ export default () => {
                     </button>
                 </div>
                 <br />
-                <div>
-                    <NavLink to="/forgot">Forgot password?</NavLink>
-                </div>
-                <div className="center text-block">
-                    <span className="me-2">New to Webster?</span>
-                    <span>
-                        <NavLink to="/register">Sign up</NavLink>
-                    </span>
-                </div>
+
+                <p className="text-center me-2"><NavLink to="/forgot">Reset Password</NavLink></p>
+                <p className="text-center me-2">New to Webster? <NavLink to="/forgot">Sign up</NavLink></p>
             </form>
         </div>
     );

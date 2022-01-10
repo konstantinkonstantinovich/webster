@@ -3,10 +3,8 @@ import './misc.css';
 
 export default () => {
     return (
-        <footer сlassName="page-footer font-small">
-            <div сlassName="footer-copyright text-center py-3">
-                © 2022 Copyright: <NavLink to="/">Webster.com</NavLink>
-            </div>
-        </footer>
+        <p className="text-center mt-3">
+            <small className="text-muted">&copy; <NavLink to="/">Webster.com</NavLink>, 2022</small>
+        </p>
     );
 };

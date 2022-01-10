@@ -10,7 +10,7 @@ export default () => {
         const login = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const password_confirmation = e.target.password.value;
+        const password_confirmation = e.target.password_confirmation.value;
 
         axios
             .post('/auth/registration', {
@@ -25,7 +25,15 @@ export default () => {
                 });
                 window.location.replace('/');
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                if (error.response) {
+                    const err = JSON.parse(error.response.data);
+
+                    Object.keys(err).forEach(function(key) {
+                        alert(err[key])
+                    })
+                }
+            });
     };
 
     return (
@@ -71,12 +79,7 @@ export default () => {
                     </button>
                 </div>
                 <br />
-                <div className="center text-block">
-                    <span className="me-2">Already signed up?</span>
-                    <span>
-                        <NavLink to="/login">Log in</NavLink>
-                    </span>
-                </div>
+                <p className="text-center me-2">Already signed up? <NavLink to="/login">Log in</NavLink></p>
             </form>
         </div>
     );
