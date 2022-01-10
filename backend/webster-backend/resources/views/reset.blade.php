@@ -1,5 +1,5 @@
 <main>
   Token for reset password
   <br>
-  {{ $token }}
+  {{ $path }}
 </main>

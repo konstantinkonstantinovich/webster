@@ -64,15 +64,15 @@ class UserController extends Controller
     public function forgot_password(Request $request){
       $user = User::where('email', '=', $request->only(['email']))->first();
       if (!$user) return;
-
       $token = Str::random(20);
       $user->remember_token = $token;
       $user->save();
-      Mail::send('reset', ['token' => $token], function ($m) use ($user) {
+      $path = "http://localhost:3000/reset_password/".$token;
+      Mail::send('reset', ['path' => $path], function ($m) use ($user) {
           $m->subject('Reset password!');
           $m->to($user->email);
       });
-      return response()->json(['Success' => 'Token was sended to your email!'], 200);
+      return response()->json(['Success' => 'Token was sended to your email!', 'path' => $path], 200);
     }
 
     public function reset_password(Request $request, $token){
