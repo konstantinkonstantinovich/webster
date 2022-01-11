@@ -34,12 +34,12 @@ export default () => {
     const switchVisible = () =>  {
         if (document.getElementById('before')) {
           if (document.getElementById('before').style.display == 'none') {
-            document.getElementById('before').style.display = 'block';
+            document.getElementById('before').style.display = 'flex';
             document.getElementById('after').style.display = 'none';
           }
           else {
             document.getElementById('before').style.display = 'none';
-            document.getElementById('after').style.display = 'block';
+            document.getElementById('after').style.display = 'flex';
           }
         }
     }
@@ -149,7 +149,7 @@ export default () => {
                               )}
                             </div>
                             <div className="col-md-7 box_upload hr-line">
-                              <label for="upload-photo">Change photo</label>
+                              <label htmlFor="upload-photo">Change photo</label>
                                 <input type="file" onChange={onFileChange} id="upload-photo"  />
                                 <button className="button-upload" onClick={onFileUpload}>Upload</button>
                               </div>
@@ -171,17 +171,16 @@ export default () => {
                             </div>
 
                           </div>
-                          <div className="row" id="after">
-                            <div className="col-md-9 input-text hr-line">
-                              <form action="" onSubmit={updateLogin}>
+                          <form action="" onSubmit={updateLogin}>
+                            <div className="row" id="after">
+                              <div className="col-md-8 input-text box_upload hr-line">
                                 <input type="text" name="login" className="form-control" placeholder="Input login..."/>
-                                <button type='submit'>Save</button>
-                              </form>
+                              </div>
+                              <div className="col-md-1 box_upload hr-line">
+                                <button type='submit' className="button-upload">Save</button>
+                              </div>
                             </div>
-                            <div className="col-md-3">
-                            </div>
-
-                          </div>
+                          </form>
 
                         </div>
                         <div className="col-md-12 profile-photo margin-top">
