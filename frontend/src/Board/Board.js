@@ -12,7 +12,7 @@ const customTheme = {
     'common.bisize.width': '251px',
     'common.bisize.height': '21px',
     'common.backgroundImage': 'none',
-    'common.backgroundColor': 'white',
+    'common.backgroundColor': '#f7f7f7',
     'common.border': '0px',
 
     // header
@@ -21,18 +21,18 @@ const customTheme = {
     'header.border': '0px',
 
     // load button
-    'loadButton.backgroundColor': '#fff',
-    'loadButton.border': '1px solid #ddd',
-    'loadButton.color': '#222',
-    'loadButton.fontFamily': 'NotoSans, sans-serif',
-    'loadButton.fontSize': '12px',
+    'loadButton.backgroundColor': '#8b3dff',
+    'loadButton.color': '#fff',
+    'loadButton.borderRadius': '5px',
+    'loadButton.fontSize': '15px',
+
 
     // download button
-    'downloadButton.backgroundColor': '#fdba3b',
-    'downloadButton.border': '1px solid #fdba3b',
+    'downloadButton.backgroundColor': '#8b3dff',
+    'downloadButton.borderRadius': '5px',
     'downloadButton.color': '#fff',
-    'downloadButton.fontFamily': 'NotoSans, sans-serif',
-    'downloadButton.fontSize': '12px',
+    'downloadButton.border': 'none',
+    'downloadButton.fontSize': '15px',
 
     // icons default
     'menu.normalIcon.color': '#8a8a8a',
