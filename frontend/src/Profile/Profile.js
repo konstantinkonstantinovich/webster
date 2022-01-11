@@ -31,6 +31,19 @@ export default () => {
             .then(() => window.location.reload());
     };
 
+    const switchVisible = () =>  {
+        if (document.getElementById('before')) {
+          if (document.getElementById('before').style.display == 'none') {
+            document.getElementById('before').style.display = 'block';
+            document.getElementById('after').style.display = 'none';
+          }
+          else {
+            document.getElementById('before').style.display = 'none';
+            document.getElementById('after').style.display = 'block';
+          }
+        }
+    }
+
     useEffect(() => {
         axios
             .get('/user/profile')
@@ -78,7 +91,7 @@ export default () => {
                         <div className="col-sm-12 margin-top">
                           <div className="row active-button box_padding">
                             <div className="col-sm-2 box_icon">
-                              <div className="icon-font"><i class="bi bi-person-circle"></i></div>
+                              <div className="icon-font"><i className="bi bi-person-circle"></i></div>
                             </div>
                             <div className="col-sm-10 box_title">
                               Account
@@ -89,7 +102,7 @@ export default () => {
                         <div className="col-sm-12 m-t">
                           <div className="row box_padding">
                             <div className="col-sm-2 box_icon">
-                              <div className="icon-font"><i class="bi bi-lock"></i></div>
+                              <div className="icon-font"><i className="bi bi-lock"></i></div>
                             </div>
                             <div className="col-sm-10 box_title">
                               Login and Security
@@ -138,18 +151,31 @@ export default () => {
                             Login
                         </div>
                         <div className="col-md-12">
-                          <div className="row">
+                          <div className="row" id="before">
+                            <div className="col-md-8 input-text box_login hr-line">
+                              {user.login}
+                            </div>
+                            <div className="col-md-1 box_upload hr-line">
+                              <button className="button-upload" onClick={switchVisible}>Edit</button>
+                            </div>
+
+                          </div>
+                          <div className="row" id="after">
                             <div className="col-md-9 input-text hr-line">
                               <input type="text" className="form-control" placeholder="Input login..."/>
                             </div>
+                            <div className="col-md-3">
+                            </div>
+
                           </div>
+
                         </div>
                         <div className="col-md-12 profile-photo margin-top">
                             Email
                         </div>
                         <div className="col-md-12">
                             <div className="row">
-                              <div className="col-md-9 input-text hr-line">
+                              <div className="col-md-9 input-text">
                                 {user.email}
                               </div>
                             </div>
@@ -159,7 +185,7 @@ export default () => {
                   </div>
                 </div>
               </main>
-              
+
               </>
             )}
         </>

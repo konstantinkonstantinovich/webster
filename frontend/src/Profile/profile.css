@@ -131,3 +131,13 @@ label {
   padding-right: 0px;
   padding-left: 0px;
 }
+
+.box_login {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#after {
+  display: none;
+}
