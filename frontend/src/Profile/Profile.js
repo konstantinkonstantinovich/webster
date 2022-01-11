@@ -44,6 +44,17 @@ export default () => {
         }
     }
 
+    const updateLogin = (e)=> {
+        e.preventDefault();
+        const login = e.target.login.value;
+        axios
+        .post('/user/update', { login })
+        .then(() => window.location.reload())
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     useEffect(() => {
         axios
             .get('/user/profile')
@@ -162,7 +173,10 @@ export default () => {
                           </div>
                           <div className="row" id="after">
                             <div className="col-md-9 input-text hr-line">
-                              <input type="text" className="form-control" placeholder="Input login..."/>
+                              <form action="" onSubmit={updateLogin}>
+                                <input type="text" name="login" className="form-control" placeholder="Input login..."/>
+                                <button type='submit'>Save</button>
+                              </form>
                             </div>
                             <div className="col-md-3">
                             </div>
