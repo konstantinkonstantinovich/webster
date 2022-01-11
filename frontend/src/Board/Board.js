@@ -3,6 +3,7 @@ import ImageEditor from '@toast-ui/react-image-editor';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import _ from 'lodash'
 
 import Loader from '../Misc/Loader';
 import './index.css';
@@ -110,6 +111,60 @@ export default () => {
             .catch((e) => console.error(e));
     }, []);
 
+    const saveTUIObjects = (editorObjects)=> {
+        let currentLayout = [];
+
+        //Properties pick
+        var modelProp = {
+            aCoords:null, //Text
+            lineCoords:null,
+            angle:null,
+            fontSize:null,
+            fontWeight:null,
+            fill:null,
+            fontStyle:null,
+            height:null,
+            left:null,
+            originX:null,
+            originY:null,
+            origins:null,
+            value:null,
+            rotatingPointOffset:null,
+            text:null,
+            textLines:null,
+            textDecoration:null,
+            top:null,
+            underline:null,
+            width:null,
+            hasBorders:null, //Shape
+            rx:null,
+            ry:null,
+            type:null,
+            scaleX:null,
+            scaleY:null,
+            startPoint:null,
+            stroke:null,
+            strokeWidth:null,
+            path:null,
+            pathOffset:null,
+            position:null,
+            lockSkewingX:null,
+            lockSkewingY:null,
+        };
+
+        for (let i = 0; i < editorObjects.length; i++) {
+            // No way to add back line or path(could be done by images?)
+            if (editorObjects[i].type != "path" && editorObjects[i].type != "line") {
+                //Strip off not needed properties like "_", "__", canvas, mouseMoveHandler
+                let filteredProp = _.pick(editorObjects[i], _.keys(modelProp));
+                currentLayout.push(filteredProp);
+            }
+
+        }
+
+        return currentLayout;
+    }
+
     useEffect(() => {
         if (!tuiRef.current) return;
 
@@ -118,41 +173,52 @@ export default () => {
 
         downloadBtn.textContent = 'Save';
 
-        // Checkout instance for trace
-        // console.log(instance);
-        // console.log(downloadBtn);
-
-        // const downloadTrigger = instance.ui._actions.main.download;
-        // console.log(downloadTrigger.toString());
-
         instance.ui._actions.main.download = () => {
             const base64 = instance.toDataURL({ format: 'png' });
             const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
+            let editorObjects = _.cloneDeep(instance._graphics.getCanvas().getObjects());
+            console.log(editorObjects);
 
-            console.log(base64);
-            console.log(content);
+            let filteredObjects = saveTUIObjects(editorObjects)
+            console.log(filteredObjects);
 
             const formData = new FormData();
-
+            formData.append('content', content, 'board.png');
             formData.append('title', project.title);
             formData.append('public', project.public);
-            formData.append('content', base64);
-            formData.append('data', '[]');
-
+            formData.append('data', JSON.stringify(filteredObjects));
             axios
-                .post(`/projects/${id}/save`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                })
-                .then(
-                    ({ data }) => console.log(data)
-                    // TODO: uncomment on success
-                    // window.location.replace(
-                    //     `/projects/${data.id}/board`
-                    // )
-                )
-                .catch((e) => console.error(e));
+                .post(`/projects/${id}/save`, formData)
+                .then((data) => console.log(data));
+
+            // --------
+            // const base64 = instance.toDataURL({ format: 'png' });
+            // const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
+
+            // console.log(base64);
+            // console.log(content);
+
+            // const formData = new FormData();
+
+            // formData.append('title', project.title);
+            // formData.append('public', project.public);
+            // formData.append('content', base64);
+            // formData.append('data', '[]');
+
+            // axios
+            //     .post(`/projects/${id}/save`, formData, {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data',
+            //         },
+            //     })
+            //     .then(
+            //         ({ data }) => console.log(data)
+            //         // TODO: uncomment on success
+            //         // window.location.replace(
+            //         //     `/projects/${data.id}/board`
+            //         // )
+            //     )
+            //     .catch((e) => console.error(e));
         };
     }, [project]);
 
