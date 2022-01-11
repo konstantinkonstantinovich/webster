@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import './profile.css'
 
 import { serverURL } from '../config';
 import Loader from '../Misc/Loader';
@@ -50,34 +51,116 @@ export default () => {
             {loading ? (
                 <Loader />
             ) : (
-                <div style={{ textAlign: 'center' }}>
-                    {user.avatar ? (
-                        <img
-                            style={{
-                                maxWidth: '25%',
-                                border: '4px solid black',
-                            }}
-                            src={user.avatar}
-                            alt={user.login}
-                        />
-                    ) : (
-                        <p>No avatar. Upload?</p>
-                    )}
+              <>
+              <main className="update_profile_page_box">
+                <div className="row">
+                  <div className="col-md-3">
+                    <div className="row-width">
+                      <div className="row">
+                        <div className="col-sm-auto box_image">
+                          {user.avatar ? (
+                              <img
+                                  className="rounded-circle image-size"
+                                  src={user.avatar}
+                              />
+                          ) : (
+                            <img
+                                className="rounded-circle image-size"
+                                src="./avatar.jpg"
+                            />
+                          )}
+                        </div>
+                        <div className="col-sm-9">
+                          <p className="user-login">{user.login}</p>
+                          <p className="user-email">{user.email}</p>
+                        </div>
 
-                    <div className="avatar_upload">
-                        <input type="file" onChange={onFileChange} />
-                        <button onClick={onFileUpload}>Upload!</button>
+                        <div className="col-sm-12 margin-top">
+                          <div className="row active-button box_padding">
+                            <div className="col-sm-2 box_icon">
+                              <div className="icon-font"><i class="bi bi-person-circle"></i></div>
+                            </div>
+                            <div className="col-sm-10 box_title">
+                              Account
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-sm-12 m-t">
+                          <div className="row box_padding">
+                            <div className="col-sm-2 box_icon">
+                              <div className="icon-font"><i class="bi bi-lock"></i></div>
+                            </div>
+                            <div className="col-sm-10 box_title">
+                              Login and Security
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div className="col-md-9">
+                    <div className="row-width">
+                      <div className="row">
+                        <div className="col-md-12 head-title">
+                            Account
+                        </div>
+                        <div className="col-md-12 profile-photo">
+                            Profile photo
+                        </div>
 
-                    <h3>Login: {user.login}</h3>
-                    <h3>e-mail: {user.email}</h3>
-                    <button
-                        style={{ background: 'red', color: 'white' }}
-                        onClick={deleteUser}
-                    >
-                        Delete account
-                    </button>
+                        <div className="col-md-12 m-b">
+                          <div className="row">
+                            <div className="col-md-2 box_avatar hr-line">
+                              {user.avatar ? (
+                                  <img
+                                      className="rounded-circle avatar-size-upload"
+                                      src={user.avatar}
+                                  />
+                              ) : (
+                                <img
+                                    className="rounded-circle avatar-size-upload"
+                                    src="./avatar.jpg"
+                                />
+                              )}
+                            </div>
+                            <div className="col-md-7 box_upload hr-line">
+                              <label for="upload-photo">Change photo</label>
+                                <input type="file" onChange={onFileChange} id="upload-photo"  />
+                                <button className="button-upload" onClick={onFileUpload}>Upload</button>
+                              </div>
+                            <div className="col-md-3">
+                            </div>
+                          </div>
+
+                        </div>
+                        <div className="col-md-12 profile-photo">
+                            Login
+                        </div>
+                        <div className="col-md-12">
+                          <div className="row">
+                            <div className="col-md-9 input-text hr-line">
+                              <input type="text" className="form-control" placeholder="Input login..."/>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-12 profile-photo margin-top">
+                            Email
+                        </div>
+                        <div className="col-md-12">
+                            <div className="row">
+                              <div className="col-md-9 input-text hr-line">
+                                {user.email}
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </main>
+              
+              </>
             )}
         </>
     );
