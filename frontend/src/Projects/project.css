@@ -16,25 +16,31 @@
 
 .card {
     width: 225px;
-    height: 150px;
-    background-color: #f2f3f5;
+    height: 180px;
+    background-color: white;
+    border: none;
+    border-radius: 7px;
+}
+
+.card-preview {
+    background-color: #e3e5e9;
+    border-radius: 7px;
+    padding: 15px;
+    width: 225px;
+    height: 135px;
 }
 
 .card:hover {
-    background-color: #cacdd3;
-
-    /* border: 1px solid black;
-    border-width: 2px 0 2px 0; */
+    background-color: #f2f3f5;
 }
 
 .card-text {
-    margin-left: 15px;
-    margin-top: -5px;
+    margin-top: -10px;
     font-size: small;
 }
 
 .card-title {
-    margin-left: 15px;
+    margin-top: 8px;
     font-size: medium;
 }
 
@@ -42,4 +48,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 225px);
     gap: 30px;
+}
+
+.navigation_arr > button {
+    background-color: white;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    border-radius: 7px;
 }

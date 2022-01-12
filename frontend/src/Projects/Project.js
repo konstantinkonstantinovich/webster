@@ -5,8 +5,10 @@ export default ({ id, preview, title }) => {
     console.log(title)
     return (
         <Card>
-            {preview && <Card.Img variant="top" src={preview} alt={title} />}
-            <Card.Body></Card.Body>
+            <div className='card-preview'>
+                {preview && <Card.Img variant="top" src={preview} alt={title} />}
+                <Card.Body></Card.Body>
+            </div>
 
             <Card.Title>
                 <Link to={`/projects/${id}/board`}>{title}</Link>
