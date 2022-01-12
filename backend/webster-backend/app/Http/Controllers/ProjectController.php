@@ -10,7 +10,7 @@ class ProjectController extends Controller
     public function get_project(Request $request, $id) {
         $user = auth()->user();
         if($user){
-            
+
             if($project = Project::find($id))
                 return response()->json($project, 200);
                 return response()->json(['error' => 'No information'], 400);
@@ -72,26 +72,26 @@ class ProjectController extends Controller
     public function save_project(Request $request, $id) {
         $user = auth()->user();
 
-        if($user) {
-            if(!($project = $user->projects->find($id))){
+        if ($user) {
+            if (!($project = $user->projects->find($id))){
                 $project = new Project;
                 $project->user_id = $user->id;
             }
 
-            if(!$request->data || !$request->content)
+            if (!$request->data || !$request->content)
                 return response()->json(['error' => 'Could not data or content'], 400);
 
             $project->data = json_encode($request->data);
 
-            if($request->title)
+            if ($request->title)
                 $project->title = $request->title;
 
-            if($request->public)
+            if ($request->public)
                 $project->public = intval($request->public);
-           
+
             $project->save();
 
-            if($request["preview"]){
+            if ($request["preview"]){
                 $imageName = "progect_id_{$project->id}.".$request->preview->extension();
                 $request->preview->move(public_path('storage/projects_preview'), $imageName);
                 $path = 'storage/projects_preview/'.$imageName;
@@ -107,8 +107,8 @@ class ProjectController extends Controller
 
             $project->save();
 
-            
-            
+
+
             return response()->json(['project' =>Project::find($project->id),
             'redirect_to' => url("api/projects/{$project->id}")], 200);
         }
