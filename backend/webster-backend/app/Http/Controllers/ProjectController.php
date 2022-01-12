@@ -45,6 +45,18 @@ class ProjectController extends Controller
             $project->data = json_encode([]);
             if($request->public)
                 $project->public = true;
+
+            if($request->title)
+                $project->title = $request->title;
+
+
+            if($request["preview"]){
+                $imageName = "progect_id_{$project->id}.".$request->preview->extension();
+                $request->preview->move(public_path('storage/projects_preview'), $imageName);
+                $path = 'storage/projects_preview/'.$imageName;
+                $project->update(['preview' => $path]);
+                $project->preview = asset($path);
+            }
             
             $project->content = asset("storage/standart_project_background.png");
             $project->save();
