@@ -8,16 +8,11 @@ import Project from './Project';
 
 import './project.css';
 
-export default () => {
+export default (props) => {
     const [isModalShown, setIsModalShown] = useState(false);
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState([]);
-    const [paginator, setPaginator] = useState({
-        next_page_url: null,
-        current_page: 1,
-        per_page: 10,
-        total: 0,
-    });
+    const [paginator, setPaginator] = useState([]);
 
     const appendProject = (project) =>
         setProjects((projects) => {
@@ -26,17 +21,26 @@ export default () => {
             return [...projects, project];
         });
 
-    useEffect(() => {
+    const loadProjects = (url='/projects?page=1') => {
         axios
-            .get('/projects')
+            .get(url)
             .then(({ data }) => {
                 console.log(data);
                 setProjects(data.data);
-                setPaginator(data);
+                setPaginator(data.links);
                 setLoading(false);
             })
             .catch((error) => console.error(error));
+    }
+
+    useEffect(() => {
+        loadProjects()
     }, []);
+
+    let navArray = []
+    paginator.forEach((nav, i) => {
+        navArray.push(<button key={i} disabled={nav.active || !nav.url} dangerouslySetInnerHTML={{ __html: nav.label }} onClick={() => {loadProjects(nav.url)}}/>)
+    })
 
     return (
         <div className="project-page">
@@ -45,17 +49,26 @@ export default () => {
                     Create new project
                 </Button>
             </div>
-            <div className="project-list">
-                {loading ? (
-                    <Loader />
-                ) : (
-                    <CardGroup>
-                        {projects.map((project) => (
-                            <Project key={project.key} {...project} />
-                        ))}
-                    </CardGroup>
-                )}
+
+            <div className="projects">
+                <div className="projects-title">
+                    <h2 className="projects-title-text">My designs</h2>
+                </div>
+                <div className="project-list">
+                    {loading ? (
+                        <Loader />
+                    ) : (
+                        <CardGroup>
+                            {projects.map((project) => (
+                                <Project key={project.key} {...project} />
+                            ))}
+                        </CardGroup>
+                    )}
+                </div>
             </div>
+
+            <nav className="navigation_arr">{navArray}</nav>
+            
             <CreateProject
                 show={isModalShown}
                 onHide={() => setIsModalShown(false)}

@@ -22,7 +22,7 @@ class ProjectController extends Controller
     public function get_user_projects(Request $request) {
         $user = auth()->user();
         if($user){
-            return Project::where('user_id',$user->id)->paginate(10);
+            return Project::where('user_id',$user->id)->paginate(18);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -30,7 +30,7 @@ class ProjectController extends Controller
 
     public function get_all_projects(Request $request) {
         if(auth()->user()){
-            return Project::where('public', true)->paginate(10);
+            return Project::where('public', true)->paginate(18);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
