@@ -49,17 +49,19 @@ class ProjectController extends Controller
             if($request->title)
                 $project->title = $request->title;
 
-
+            $project->content = asset("storage/standart_project_background.png");
+            $project->save();
             if($request["preview"]){
                 $imageName = "progect_id_{$project->id}.".$request->preview->extension();
                 $request->preview->move(public_path('storage/projects_preview'), $imageName);
                 $path = 'storage/projects_preview/'.$imageName;
                 $project->update(['preview' => $path]);
                 $project->preview = asset($path);
+                $project->save();
             }
             
-            $project->content = asset("storage/standart_project_background.png");
-            $project->save();
+    
+            
             return response()->json(['project' =>Project::find($project->id),
             'redirect_to' => url("api/projects/{$project->id}")], 200);
         }
