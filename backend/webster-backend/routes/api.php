@@ -24,6 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group([
     'middleware' => 'api',
+    'prefix' => 'image'
+], function ($router) {
+    Route::get('/{filename}', function (Request $request, $filename) {
+        return response()->download(public_path("storage/$filename"));
+    });
+});
+
+Route::group([
+    'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {

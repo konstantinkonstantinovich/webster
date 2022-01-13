@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import _ from 'lodash';
 
+import { serverURL } from '../config';
 import Loader from '../Misc/Loader';
 import './index.css';
 
@@ -106,7 +107,15 @@ export default () => {
     useEffect(() => {
         axios
             .get(`/projects/${id}`)
-            .then(({ data }) => setProject(data))
+            .then(({ data }) =>
+                setProject({
+                    ...data,
+                    content: `${serverURL}/api/image/${data.content
+                        .split('/')
+                        .at(-1)}`,
+                    data: JSON.parse(JSON.parse(data.data)),
+                })
+            )
             .catch((e) => console.error(e));
     }, []);
 
@@ -173,9 +182,10 @@ export default () => {
 
         downloadBtn.textContent = 'Save';
 
-        if (project.data !== '[]') {
-            instance._graphics.getCanvas().loadFromJSON(project.data);
-        }
+        if (project.data !== '[]')
+            instance._graphics.getCanvas()._setOptions(project.data);
+
+        // instance._graphics.getCanvas()._setObjects(JSON.parse(project.data));
 
         instance.ui._actions.main.download = () => {
             const base64 = instance.toDataURL({ format: 'png' });

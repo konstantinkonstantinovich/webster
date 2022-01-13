@@ -53,8 +53,8 @@ class ProjectController extends Controller
             $project->save();
             if($request["preview"]){
                 $imageName = "progect_id_{$project->id}.".$request->preview->extension();
-                $request->preview->move(public_path('storage/projects_preview'), $imageName);
-                $path = 'storage/projects_preview/'.$imageName;
+                $request->preview->move(public_path('storage/'), $imageName);
+                $path = 'storage/'.$imageName;
                 $project->update(['preview' => $path]);
                 $project->preview = asset($path);
                 $project->save();
@@ -95,15 +95,15 @@ class ProjectController extends Controller
 
             if ($request["preview"]){
                 $imageName = "progect_id_{$project->id}.".$request->preview->extension();
-                $request->preview->move(public_path('storage/projects_preview'), $imageName);
-                $path = 'storage/projects_preview/'.$imageName;
+                $request->preview->move(public_path('storage/'), $imageName);
+                $path = 'storage/'.$imageName;
                 $project->update(['preview' => $path]);
                 $project->preview = asset($path);
             }
 
             $background_image = "content_progect_id_{$project->id}.".$request->content->extension();
-            $request->content->move(public_path('storage/projects_content'), $background_image);
-            $path = 'storage/projects_content/'.$background_image;
+            $request->content->move(public_path('storage'), $background_image);
+            $path = 'storage/'.$background_image;
             $project->update(['content' => $path]);
             $project->content = asset($path);
 
