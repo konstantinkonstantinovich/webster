@@ -13,7 +13,7 @@ export default ({ id, preview, title }) => {
             </Card.Title>
 
             <Card.Text>
-                project 
+                project
             </Card.Text>
         </Card>
     );
