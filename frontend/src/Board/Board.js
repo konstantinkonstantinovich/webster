@@ -183,7 +183,7 @@ export default () => {
         downloadBtn.textContent = 'Save';
 
         if (project.data !== '[]')
-            instance._graphics.getCanvas()._setOptions(project.data);
+            instance._graphics.getCanvas().loadFromJSON(project.data);
 
         // instance._graphics.getCanvas()._setObjects(JSON.parse(project.data));
 
