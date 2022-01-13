@@ -48,11 +48,13 @@ export default (props) => {
                 <Button variant="primary" onClick={() => setIsModalShown(true)}>
                     Create new project
                 </Button>
+
             </div>
 
             <div className="projects">
                 <div className="projects-title">
                     <h2 className="projects-title-text">My designs</h2>
+                    <nav className="navigation_arr">{navArray}</nav>
                 </div>
                 <div className="project-list">
                     {loading ? (
@@ -66,8 +68,6 @@ export default (props) => {
                     )}
                 </div>
             </div>
-
-            <nav className="navigation_arr">{navArray}</nav>
             
             <CreateProject
                 show={isModalShown}
