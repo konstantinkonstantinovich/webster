@@ -17,15 +17,16 @@
 .card {
     width: 225px;
     height: 180px;
-    background-color: white;
+    background: #fbfbfb;
     border: none;
     border-radius: 7px;
 }
 
 .card-preview {
+    border: 1px solid #d1d1d1;
     background-color: #e3e5e9;
     border-radius: 7px;
-    padding: 15px;
+    padding: 0.3px;
     width: 225px;
     height: 135px;
 }
@@ -40,6 +41,7 @@
 }
 
 .card-title {
+
     margin-top: 8px;
     font-size: medium;
 }
@@ -55,4 +57,13 @@
     border: none;
     font-family: 'Nunito', sans-serif;
     border-radius: 7px;
+}
+
+.card-preview img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 0.3em!;
+  border-top-right-radius: 0.3em!;
+  border-bottom-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
 }

@@ -6,7 +6,7 @@ export default ({ id, preview, title }) => {
     return (
         <Card>
             <div className='card-preview'>
-                {preview && <Card.Img variant="top" src={preview} alt={title} />}
+                {preview && <img src={preview} alt={title} />}
                 <Card.Body></Card.Body>
             </div>
 
