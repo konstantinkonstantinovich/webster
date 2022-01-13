@@ -21,7 +21,7 @@ export default (props) => {
             return [...projects, project];
         });
 
-    const loadProjects = (url='/projects?page=1') => {
+    const loadProjects = (url = '/projects?page=1') => {
         axios
             .get(url)
             .then(({ data }) => {
@@ -31,16 +31,25 @@ export default (props) => {
                 setLoading(false);
             })
             .catch((error) => console.error(error));
-    }
+    };
 
     useEffect(() => {
-        loadProjects()
+        loadProjects();
     }, []);
 
-    let navArray = []
+    let navArray = [];
     paginator.forEach((nav, i) => {
-        navArray.push(<button key={i} disabled={nav.active || !nav.url} dangerouslySetInnerHTML={{ __html: nav.label }} onClick={() => {loadProjects(nav.url)}}/>)
-    })
+        navArray.push(
+            <button
+                key={i}
+                disabled={nav.active || !nav.url}
+                dangerouslySetInnerHTML={{ __html: nav.label }}
+                onClick={() => {
+                    loadProjects(nav.url);
+                }}
+            />
+        );
+    });
 
     return (
         <div className="project-page">
@@ -48,7 +57,6 @@ export default (props) => {
                 <Button variant="primary" onClick={() => setIsModalShown(true)}>
                     Create new project
                 </Button>
-
             </div>
 
             <div className="projects">
@@ -62,13 +70,13 @@ export default (props) => {
                     ) : (
                         <CardGroup>
                             {projects.map((project) => (
-                                <Project key={project.key} {...project} />
+                                <Project key={project.id} {...project} />
                             ))}
                         </CardGroup>
                     )}
                 </div>
             </div>
-            
+
             <CreateProject
                 show={isModalShown}
                 onHide={() => setIsModalShown(false)}
