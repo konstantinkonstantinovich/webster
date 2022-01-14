@@ -266,8 +266,8 @@ export default () => {
         ).then(console.log);
 
         instance.ui._actions.main.download = () => {
-            const base64 = instance.toDataURL({ format: 'png' });
-            const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
+
+
             const editorObjects = _.cloneDeep(
                 instance._graphics.getCanvas().getObjects()
             );
@@ -277,10 +277,25 @@ export default () => {
             console.log(filteredObjects);
 
             const formData = new FormData();
-            formData.append('content', content, 'board.png');
             formData.append('title', project.title);
             formData.append('public', project.public);
             formData.append('data', JSON.stringify(filteredObjects));
+
+            let objects = instance._graphics._canvas._objects;
+            let keptObjects = [];
+            for (let i = 0; i < objects.length; i++) {
+              //Keep free drawing into the background image as we cannot updated it or add it back
+              console.log("cleanCanvasForBackImgSave",objects[i].type);
+              if(objects[i].type == "path" || objects[i].type == "line"){
+                keptObjects.push(objects[i]);
+              }
+            }
+            instance._graphics._canvas._objects = keptObjects;
+
+            const base64 = instance.toDataURL({ format: 'png' });
+            const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
+            formData.append('content', content, 'board.png');
+
 
             axios
                 .post(`/projects/${id}/save`, formData)
