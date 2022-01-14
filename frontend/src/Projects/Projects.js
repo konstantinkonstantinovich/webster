@@ -157,6 +157,10 @@ export default (props) => {
                                   </div>
                       )}
 
+                      <div className="projects-title text-center mt-2">
+                          <nav className="navigation_arr">{navArray}</nav>
+                      </div>
+
 
 
                   </div>
