@@ -114,7 +114,7 @@ export default () => {
                     ...data,
                     content: `${serverURL}/api/image/${data.content
                         .split('/')
-                        .at(-1)}`,
+                        [data.content.split('/').length - 1]}`,
                     data:
                         typeof parsed === 'string'
                             ? JSON.parse(parsed)
