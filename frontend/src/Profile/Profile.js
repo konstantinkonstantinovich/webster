@@ -149,9 +149,9 @@ export default () => {
                               )}
                             </div>
                             <div className="col-md-7 box_upload hr-line">
-                              <label htmlFor="upload-photo">Change photo</label>
+                              <label htmlFor="upload-photo" className='pointer'>Change photo</label>
                                 <input type="file" onChange={onFileChange} id="upload-photo"  />
-                                <button className="button-upload" onClick={onFileUpload}>Upload</button>
+                                <button className="button-upload customButton" onClick={onFileUpload}>Upload</button>
                               </div>
                             <div className="col-md-3">
                             </div>
@@ -179,7 +179,7 @@ export default () => {
                               <div className="col-md-1 box_upload hr-line">
                                 <button type='submit' className="button-upload">Save</button>
                               </div>
-          
+
                             </div>
                           </form>
 

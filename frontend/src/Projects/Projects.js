@@ -59,17 +59,6 @@ export default (props) => {
                     <div className="col-md-3">
                         <div className="row-width">
                             <div className="row">
-                                <div className="col-sm-auto">
-                                    <img
-                                        className="rounded-circle image-size"
-                                        src="./avatar.jpg"
-                                    />
-                                </div>
-                                <div className="col-sm-9">
-                                    <p className="user-login">indefinitely</p>
-                                    <p className="user-email">indefinitely</p>
-                                </div>
-
                                 <div className="col-sm-12 margin-top">
                                     <div className="row active-button box_padding">
                                         <div className="col-sm-2 box_icon">
