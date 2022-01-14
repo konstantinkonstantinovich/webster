@@ -67,3 +67,26 @@
   border-bottom-left-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
 }
+
+.search-box {
+  position: absolute;
+  display: flex;
+  top: 45%;
+  right: 10%;
+  width: 80%;
+}
+
+.serch-content {
+  position: relative;
+}
+
+.box-for-head {
+  text-align: center;
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  color: white;
+  width: 80%;
+  font-size: 2rem;
+  font-weight: 600;
+}
