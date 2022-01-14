@@ -114,7 +114,7 @@ export default () => {
                     ...data,
                     content: `${serverURL}/api/image/${data.content
                         .split('/')
-                        .at(-1)}`,
+                        .at(-1)}`, //TODO fix for Safari compatability
                     data:
                         typeof parsed === 'string'
                             ? JSON.parse(parsed)
@@ -295,7 +295,6 @@ export default () => {
             const base64 = instance.toDataURL({ format: 'png' });
             const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
             formData.append('content', content, 'board.png');
-
 
             axios
                 .post(`/projects/${id}/save`, formData)
