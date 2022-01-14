@@ -1,6 +1,7 @@
 import { Button, CardGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import CreateProject from './CreateProject';
 import Loader from '../Misc/Loader';
@@ -137,34 +138,27 @@ export default (props) => {
                   <div className="col-md-12">
                     <h2 className="mt-4">Designs</h2>
 
-                    <div className="project-page">
 
 
-                        <div className="projects">
 
-                            <div className="project-list">
-                                {loading ? (
-                                    <Loader />
-                                ) : (
-                                    <CardGroup>
-                                        {projects.map((project) => (
-                                            <Project key={project.id} {...project} />
-                                        ))}
-                                    </CardGroup>
-                                )}
-                            </div>
-                        </div>
+                      {loading ? (
+                                   <Loader />
+                               ) : (
+                                 <div class="cards-list">
+                                       {projects.map((project) => (
+                                         <div class="card 1">
+                                           <div class="card_image"> <img src={project.preview} /> </div>
+                                           <div class="card_title">
 
-                        <CreateProject
-                            show={isModalShown}
-                            onHide={() => setIsModalShown(false)}
-                            appendProject={appendProject}
-                        />
+                                             <p><Link className="title-black" to={`/projects/${project.id}/board`}>{project.title}</Link></p>
+                                           </div>
+                                         </div>
+                                       ))}
+                                  </div>
+                      )}
 
-                        <div className="projects-title text-center mt-2">
-                            <nav className="navigation_arr">{navArray}</nav>
-                        </div>
-                    </div>
+
+
                   </div>
 
                 </div>
