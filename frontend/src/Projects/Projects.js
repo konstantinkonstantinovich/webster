@@ -168,28 +168,14 @@ export default (props) => {
                                         <Loader />
                                     ) : (
                                         <div className="cards-list">
-                                            {projects.map((project) => (
-                                                <div
-                                                    className="card 1"
-                                                    key={project.id}
-                                                >
-                                                    <div className="card_image">
-                                                        {' '}
-                                                        <img
-                                                            src={
-                                                                project.preview
-                                                            }
-                                                        />{' '}
-                                                    </div>
-                                                    <div className="card_title">
-                                                        <p>
-                                                            <Link
-                                                                className="title-black"
-                                                                to={`/projects/${project.id}/board`}
-                                                            >
-                                                                {project.title}
-                                                            </Link>
-                                                        </p>
+                                            {projects.map((project) => ( // style="width: 18rem;"
+                                                <div class="card" key={project.id} style={{width: '15rem'}}>
+                                                    {project.preview ? <img src={project.preview} class="card-img-top card_preview"/> : <div className='card-img-top card_preview placeholder'><p>No preview</p></div>}
+
+                                                    <div class="card-body">
+                                                        <Link className="title-black" to={`/projects/${project.id}/board`} >
+                                                            {project.title}
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             ))}
