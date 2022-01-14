@@ -6,3 +6,7 @@
 .tui-image-editor-help-menu.top li.tui-image-editor-item {
     padding-top: 0px;
 }
+
+.tui-image-editor-header-logo {
+  display: none;
+}

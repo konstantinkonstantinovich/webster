@@ -22,6 +22,7 @@ const customTheme = {
     'header.backgroundColor': 'transparent',
     'header.border': '0px',
 
+
     // load button
     'loadButton.backgroundColor': '#8b3dff',
     'loadButton.color': '#fff',
