@@ -13,7 +13,7 @@ class ProjectController extends Controller
 
             if($project = Project::find($id))
                 return response()->json($project, 200);
-                return response()->json(['error' => 'No information'], 400);
+            return response()->json(['error' => 'No information'], 400);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -22,7 +22,11 @@ class ProjectController extends Controller
     public function get_user_projects(Request $request) {
         $user = auth()->user();
         if($user){
-            return Project::where('user_id',$user->id)->paginate(18);
+            $projects = Project::where('user_id',$user->id);
+            if ($request['search']) {
+                $projects->where('title', 'Like', '%' . $request['search'] . '%');
+            }
+            return $projects->paginate(18);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -30,7 +34,11 @@ class ProjectController extends Controller
 
     public function get_all_projects(Request $request) {
         if(auth()->user()){
-            return Project::where('public', true)->paginate(18);
+            $projects = Project::where('public', true);
+            if ($request['search']) {
+                $projects->where('title', 'Like', '%' . $request['search'] . '%');
+            }
+            return $projects->paginate(18);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
