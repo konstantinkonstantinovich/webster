@@ -107,15 +107,20 @@ export default () => {
     useEffect(() => {
         axios
             .get(`/projects/${id}`)
-            .then(({ data }) =>
+            .then(({ data }) => {
+                const parsed = JSON.parse(data.data);
+
                 setProject({
                     ...data,
                     content: `${serverURL}/api/image/${data.content
                         .split('/')
                         .at(-1)}`,
-                    data: JSON.parse(JSON.parse(data.data)),
-                })
-            )
+                    data:
+                        typeof parsed === 'string'
+                            ? JSON.parse(parsed)
+                            : parsed,
+                });
+            })
             .catch((e) => console.error(e));
     }, []);
 
@@ -148,6 +153,7 @@ export default () => {
             rx: null,
             ry: null,
             type: null,
+            realType: null,
             scaleX: null,
             scaleY: null,
             startPoint: null,
@@ -169,12 +175,22 @@ export default () => {
                 //Strip off not needed properties like "_", "__", canvas, mouseMoveHandler
                 currentLayout.push(_.pick(editorObjects[i], _.keys(modelProp)));
             }
+
+            // if (editorObjects[i]._element) {
+            //     const id = editorObjects[i]._element.currentSrc
+            //         .split('/')
+            //         .at(-1);
+            //     currentLayout[i].imageObject = {
+            //         id,
+            //         url: editorObjects[i]._element.currentSrc,
+            //     };
+            // }
         }
 
         return currentLayout;
     };
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!tuiRef.current) return;
 
         const instance = tuiRef.current.getInstance();
@@ -182,27 +198,89 @@ export default () => {
 
         downloadBtn.textContent = 'Save';
 
-        if (project.data !== '[]')
-            instance._graphics.getCanvas().loadFromJSON(project.data);
+        console.log(project.data);
 
-        // instance._graphics.getCanvas()._setObjects(JSON.parse(project.data));
+        const callWithDelay = (func, ...args) =>
+            new Promise(
+                (resolve) => setTimeout(() => resolve(func(...args)), 1000) // could be more
+            );
+
+        let selectedType = null;
+
+        [...document.querySelectorAll('.tui-image-editor-button')].map((node) =>
+            node.addEventListener(
+                'click',
+                (e) => (selectedType = e.currentTarget.dataset.icontype)
+            )
+        );
+
+        instance.on('objectAdded', function (props) {
+            console.log(props);
+
+            if (props.type === 'icon') {
+                instance.setObjectProperties(props.id, {
+                    realType: selectedType,
+                });
+            }
+        });
+
+        Promise.allSettled(
+            project.data.map((d) => {
+                switch (d.type) {
+                    case 'rect':
+                    case 'circle':
+                    case 'triangle':
+                        return callWithDelay(
+                            instance.addShape.bind(instance),
+                            d.type,
+                            d
+                        );
+                    case 'icon':
+                        return callWithDelay(
+                            instance.addIcon.bind(instance),
+                            d.realType,
+                            d
+                        );
+                    case 'i-text':
+                        return callWithDelay(
+                            instance.addText.bind(instance),
+                            d.text,
+                            {
+                                styles: { ...d },
+                                position: { ...d },
+                                ...d,
+                            }
+                        );
+                    // case 'image':
+                    //     return callWithDelay(
+                    //         instance.addImageObject.bind(instance),
+                    //         d._originalElement.currentSrc,
+                    //         {
+                    //             styles: { ...d },
+                    //             position: { ...d },
+                    //             ...d,
+                    //         }
+                    //     );
+                }
+            })
+        ).then(console.log);
 
         instance.ui._actions.main.download = () => {
             const base64 = instance.toDataURL({ format: 'png' });
             const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
             const editorObjects = _.cloneDeep(
-                instance._graphics.getCanvas().toJSON()
+                instance._graphics.getCanvas().getObjects()
             );
             console.log(editorObjects);
 
-            // const filteredObjects = saveTUIObjects(editorObjects);
-            // console.log(filteredObjects);
+            const filteredObjects = saveTUIObjects(editorObjects);
+            console.log(filteredObjects);
 
             const formData = new FormData();
             formData.append('content', content, 'board.png');
             formData.append('title', project.title);
             formData.append('public', project.public);
-            formData.append('data', JSON.stringify(editorObjects));
+            formData.append('data', JSON.stringify(filteredObjects));
 
             axios
                 .post(`/projects/${id}/save`, formData)
