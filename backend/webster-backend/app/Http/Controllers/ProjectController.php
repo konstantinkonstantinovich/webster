@@ -25,6 +25,7 @@ class ProjectController extends Controller
             $projects = Project::where('user_id',$user->id);
             if ($request['search']) {
                 $projects->where('title', 'Like', '%' . $request['search'] . '%');
+                return response()->json(['data' => $projects->get()], 200);
             }
             return $projects->paginate(18);
         }
@@ -37,6 +38,7 @@ class ProjectController extends Controller
             $projects = Project::where('public', true);
             if ($request['search']) {
                 $projects->where('title', 'Like', '%' . $request['search'] . '%');
+                return response()->json(['data' => $projects->get()], 200);
             }
             return $projects->paginate(18);
         }
@@ -67,9 +69,9 @@ class ProjectController extends Controller
                 $project->preview = asset($path);
                 $project->save();
             }
-            
-    
-            
+
+
+
             return response()->json(['project' =>Project::find($project->id),
             'redirect_to' => url("api/projects/{$project->id}")], 200);
         }

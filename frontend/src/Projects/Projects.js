@@ -14,6 +14,7 @@ export default (props) => {
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState([]);
     const [paginator, setPaginator] = useState([]);
+    const [search, setSearch] = useState('');
 
     const appendProject = (project) =>
         setProjects((projects) => {
@@ -33,6 +34,18 @@ export default (props) => {
             })
             .catch((error) => console.error(error));
     };
+
+    const searchProjects = (url) => {
+      axios
+          .get('/projects?page=1&search=' + encodeURIComponent(search))
+          .then(({ data }) => {
+              console.log(data);
+              setProjects(data.data);
+              setPaginator([]);
+              setLoading(false);
+          })
+          .catch((error) => console.error(error));
+  };
 
     useEffect(() => {
         loadProjects();
@@ -86,7 +99,7 @@ export default (props) => {
                                 </div>
 
                                 <div className="col-sm-12 m-t">
-                                    <div className="row box_padding">
+                                    <div className="row box_padding customButton pointer">
                                         <div className="col-sm-2 box_icon">
                                             <div className="icon-font">
                                                 <i className="bi bi-pencil-square"></i>
@@ -132,13 +145,13 @@ export default (props) => {
                                             today?
                                         </div>
                                         <div className="search-box">
-                                            <input
+                                            <input onChange={(e)=>{setSearch(e.target.value)}}
                                                 className="form-control me-2"
                                                 type="search"
                                                 placeholder="Search"
                                                 aria-label="Search"
                                             />
-                                            <button
+                                            <button onClick={searchProjects}
                                                 className="btn btn-outline-success"
                                                 type="submit"
                                             >
@@ -185,7 +198,7 @@ export default (props) => {
 
                                     <div className="projects-title text-center mt-2">
                                         <nav className="navigation_arr">
-                                            {navArray}
+                                            {navArray ? navArray : null}
                                         </nav>
                                     </div>
                                 </div>
