@@ -39,3 +39,10 @@ footer {
 .pointer {
 	cursor: pointer;
 }
+
+.customButton:hover {
+	color: #0d1216;
+	font-weight: bolder;
+	background: #394C6026;
+	border-radius: 5px;
+}

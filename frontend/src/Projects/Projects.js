@@ -59,17 +59,6 @@ export default (props) => {
             <div className="col-md-3">
               <div className="row-width">
                 <div className="row">
-                  <div className="col-sm-auto">
-                    <img
-                        className="rounded-circle image-size"
-                        src="./avatar.jpg"
-                    />
-                  </div>
-                  <div className="col-sm-9">
-                    <p className="user-login">indefinitely</p>
-                    <p className="user-email">indefinitely</p>
-                  </div>
-
                   <div className="col-sm-12 margin-top">
                     <div className="row active-button box_padding">
                       <div className="col-sm-2 box_icon">
@@ -93,13 +82,18 @@ export default (props) => {
                   </div>
 
                   <div className="col-sm-12 m-t">
-                    <div className="row box_padding">
+                    <div className="row box_padding customButton pointer" onClick={() => setIsModalShown(true)}>
                       <div className="col-sm-2 box_icon">
                         <div className="icon-font"><i class="bi bi-pencil-square"></i></div>
                       </div>
-                      <div className="col-sm-10 box_title " onClick={() => setIsModalShown(true)}>
+                      <div className="col-sm-10 box_title ">
                         New project
                       </div>
+                      <CreateProject
+                            show={isModalShown}
+                            onHide={() => setIsModalShown(false)}
+                            appendProject={appendProject}
+                        />
                     </div>
                   </div>
 
