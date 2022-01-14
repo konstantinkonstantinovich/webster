@@ -22,6 +22,7 @@ const customTheme = {
     'header.backgroundColor': 'transparent',
     'header.border': '0px',
 
+
     // load button
     'loadButton.backgroundColor': '#8b3dff',
     'loadButton.color': '#fff',
@@ -114,7 +115,7 @@ export default () => {
                     ...data,
                     content: `${serverURL}/api/image/${data.content
                         .split('/')
-                        .at(-1)}`, //TODO fix for Safari compatability
+                        [data.content.split('/').length - 1]}`,
                     data:
                         typeof parsed === 'string'
                             ? JSON.parse(parsed)

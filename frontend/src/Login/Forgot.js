@@ -42,7 +42,7 @@ export default () => {
                     </div>
                     <br />
                     
-                    <p className="text-center me-2">New to Webster? <NavLink to="/forgot">Sign up</NavLink></p>
+                    <p className="text-center me-2">New to Webster? <NavLink to="/register">Sign up</NavLink></p>
                 </form>
             </div>
         </>
