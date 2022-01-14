@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { serverURL } from '../config';
 import Loader from '../Misc/Loader';
 import './index.css';
+import { Container, Form } from 'react-bootstrap';
 
 const customTheme = {
     'common.bi.image': '',
@@ -21,7 +22,6 @@ const customTheme = {
     'header.backgroundImage': 'none',
     'header.backgroundColor': 'transparent',
     'header.border': '0px',
-
 
     // load button
     'loadButton.backgroundColor': '#8b3dff',
@@ -113,9 +113,11 @@ export default () => {
 
                 setProject({
                     ...data,
-                    content: `${serverURL}/api/image/${data.content
-                        .split('/')
-                        [data.content.split('/').length - 1]}`,
+                    content: `${serverURL}/api/image/${
+                        data.content.split('/')[
+                            data.content.split('/').length - 1
+                        ]
+                    }`,
                     data:
                         typeof parsed === 'string'
                             ? JSON.parse(parsed)
@@ -267,8 +269,6 @@ export default () => {
         ).then(console.log);
 
         instance.ui._actions.main.download = () => {
-
-
             const editorObjects = _.cloneDeep(
                 instance._graphics.getCanvas().getObjects()
             );
@@ -285,18 +285,17 @@ export default () => {
             let objects = instance._graphics._canvas._objects;
             let keptObjects = [];
             for (let i = 0; i < objects.length; i++) {
-              //Keep free drawing into the background image as we cannot updated it or add it back
-              console.log("cleanCanvasForBackImgSave",objects[i].type);
-              if(objects[i].type == "path" || objects[i].type == "line"){
-                keptObjects.push(objects[i]);
-              }
+                //Keep free drawing into the background image as we cannot updated it or add it back
+                console.log('cleanCanvasForBackImgSave', objects[i].type);
+                if (objects[i].type == 'path' || objects[i].type == 'line') {
+                    keptObjects.push(objects[i]);
+                }
             }
             instance._graphics._canvas._objects = keptObjects;
 
             const base64 = instance.toDataURL({ format: 'png' });
             const content = dataURLtoFile(base64, 'board.png'); // TODO: check file sanding
             formData.append('content', content, 'board.png');
-
 
             axios
                 .post(`/projects/${id}/save`, formData)
@@ -308,40 +307,67 @@ export default () => {
     return (
         <>
             {project ? (
-                <ImageEditor
-                    ref={tuiRef}
-                    includeUI={{
-                        loadImage: {
-                            path: project.content ?? '/image.png',
-                            name: 'image',
-                        },
-                        theme: customTheme,
-                        menu: [
-                            'shape',
-                            'filter',
-                            'text',
-                            'mask',
-                            'icon',
-                            'draw',
-                            'crop',
-                            'flip',
-                            'rotate',
-                        ],
-                        initMenu: 'filter',
-                        uiSize: {
-                            width: '100%',
-                            height: 'calc(100% - 56px)',
-                        },
-                        menuBarPosition: 'left',
-                    }}
-                    cssMaxHeight={500}
-                    cssMaxWidth={700}
-                    selectionStyle={{
-                        cornerSize: 20,
-                        rotatingPointOffset: 70,
-                    }}
-                    usageStatistics={false}
-                />
+                <>
+                    <Container
+                        style={{
+                            width: 248,
+                            position: 'absolute',
+                            top: 70,
+                            left: 64,
+                            zIndex: 9999,
+                        }}
+                    >
+                        <Form
+                            className="d-flex"
+                            style={{ alignItems: 'center' }}
+                        >
+                            <Form.Label className="mb-0">Title:</Form.Label>
+                            <Form.Control
+                                value={project.title}
+                                onChange={(e) =>
+                                    setProject((project) => ({
+                                        ...project,
+                                        title: e.target.value,
+                                    }))
+                                }
+                            />
+                        </Form>
+                    </Container>
+                    <ImageEditor
+                        ref={tuiRef}
+                        includeUI={{
+                            loadImage: {
+                                path: project.content ?? '/image.png',
+                                name: 'image',
+                            },
+                            theme: customTheme,
+                            menu: [
+                                'shape',
+                                'filter',
+                                'text',
+                                'mask',
+                                'icon',
+                                'draw',
+                                'crop',
+                                'flip',
+                                'rotate',
+                            ],
+                            initMenu: 'filter',
+                            uiSize: {
+                                width: '100%',
+                                height: 'calc(100% - 56px)',
+                            },
+                            menuBarPosition: 'left',
+                        }}
+                        cssMaxHeight={500}
+                        cssMaxWidth={700}
+                        selectionStyle={{
+                            cornerSize: 20,
+                            rotatingPointOffset: 70,
+                        }}
+                        usageStatistics={false}
+                    />
+                </>
             ) : (
                 <Loader />
             )}
